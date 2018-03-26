@@ -1,5 +1,6 @@
 import logging
 import os
+import subprocess
 from config import Config
 from pathlib import Path
 from modules.conversationModule import ConversationModule
@@ -58,7 +59,7 @@ def init_modules():
         wolfram_alpha_module = WolframAlphaModule()
         wolfram_alpha_module.activate()
 
-        # TODO activated get modules from config
+        # TODO get modules from config
 
     except ModuleException as e:
         logger.error(e.message())
@@ -98,6 +99,12 @@ def main():
     # Initialize Config
     Config.set_instance(config_dir_path)
     Config.get_instance().modules_load()
+
+    # Start mopidy server
+    devnull = open(os.devnull, 'w')
+    subprocess.call("killall mopidy", shell=True, stderr=devnull, stdout=devnull, stdin=devnull)
+    subprocess.call("mopidy -q &", shell=True, stderr=devnull, stdout=devnull, stdin=devnull)
+
 
     # start communicators
     logger.info("Starting Communicators...")
