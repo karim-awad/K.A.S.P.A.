@@ -8,24 +8,25 @@ import os
 
 
 class Spotify:
-
     client_id = ''
     client_secret = ''
     username = ''
+    token = ''
     spotipy = None
     scope = "playlist-read-private user-library-read playlist-modify-private playlist-modify-public " \
             "user-read-currently-playing "
 
-    def init(self):
+    def __init__(self):
         config = Config.get_instance()
         self.client_id = config.get("spotify", "client_id")
         self.client_secret = config.get("spotify", "client_secret")
         self.username = config.get("spotify", "username")
-        token = util.prompt_for_user_token(self.username, self.scope)
-        self.spotipy = spotipy.Spotify(auth=token)
-        os.system("export SPOTIPY_CLIENT_ID='" + self.client_id + "'")
-        os.system("export SPOTIPY_CLIENT_SECRET='" + self.client_secret + "'")
-        os.system("export SPOTIPY_REDIRECT_URI='http://localhost/'")
+        os.environ["SPOTIPY_CLIENT_ID"] = "self.client_id"
+        os.environ["SPOTIPY_CLIENT_SECRET"] = "self.client_secret"
+        os.environ["SPOTIPY_REDIRECT_URI"] = "http://localhost/'"
+        self.token = util.prompt_for_user_token(self.username, self.scope, client_id=self.client_id,
+                                                client_secret=self.client_secret, redirect_uri='http://localhost/')
+        self.spotipy = spotipy.Spotify(auth=self.token)
 
     def get_currently_playing(self):
         url = "https://api.spotify.com/v1/me/player/currently-playing"
@@ -44,7 +45,7 @@ class Spotify:
         most_popular = results[0]
         return most_popular
 
-    def get_saved(self, start_song = None):
+    def get_saved(self, start_song=None):
         saved = self.spotipy.current_user_saved_tracks(limit=50)
         id_list = []
         for item in saved["items"]:
@@ -54,7 +55,7 @@ class Spotify:
         while len(new["items"]) > 1:
             for item in new["items"]:
                 id_list.append(item["track"]["uri"])
-            i = i+1
+            i = i + 1
             new = self.spotipy.current_user_saved_tracks(limit=50, offset=i * 50)
         if start_song is not None:
             start_index = 0
@@ -120,7 +121,7 @@ class Spotify:
         artist = self.get_artist(name)
         self.show_artist(artist)
         self.show_artist_albums(artist)
-        #TODO return value?
+        # TODO return value?
 
     @staticmethod
     def show_artist(artist):
@@ -149,15 +150,10 @@ class Spotify:
             self.add_to_playlist(playlists["uri"], tids)
         return playlists
 
-    @staticmethod
-    def read_playlist(uri, start_song=None):
-        client_credentials_manager = SpotifyClientCredentials()
-        sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
+    def read_playlist(self, uri, start_song=None):
         username = uri.split(':')[2]
         playlist_id = uri.split(':')[4]
-
-        results = sp.user_playlist(username, playlist_id)
+        results = self.spotipy.user_playlist(username, playlist_id)
         ids = []
         for result in results["tracks"]["items"]:
             ids.append(result["track"]["uri"])
@@ -168,4 +164,3 @@ class Spotify:
                     start_index = ids.index(id) + 1
             ids = ids[start_index:]
         return ids
-

@@ -10,6 +10,7 @@ from modules.redditModule import RedditModule
 from modules.mensaModule import MensaModule
 from modules.timeModule import TimeModule
 from modules.weatherModule import WeatherModule
+from modules.spotifyModule import SpotifyModule
 from modules.wikipediaModule import WikipediaModule
 from modules.wolframAlphaModule import WolframAlphaModule
 
@@ -26,6 +27,9 @@ def init_modules():
     try:
         conversation_module = ConversationModule()
         conversation_module.activate()
+
+        spotify_module = SpotifyModule()
+        spotify_module.activate()
 
         google_maps_module = GoogleMapsModule()
         google_maps_module.activate()

@@ -6,6 +6,7 @@ from config import Config
 class MpdController:
     client = None
     instance = None
+    VOLUME = 40
 
     class __MpdController:
         
@@ -14,11 +15,11 @@ class MpdController:
 
         def __init__(self):
             config = Config.get_instance()
-            config.get('mpd', 'address')
-            config.get('mpd', 'port')
+            self.address = config.get('mpd', 'address')
+            self.port = config.get('mpd', 'port')
             self.client = MPDClient()
             self.client.connect(self.address, self.port)
-            self.client.setvol(40)
+            self.client.setvol(MpdController.VOLUME)
             self.client.disconnect()
 
         def play_beginning(self):
@@ -59,9 +60,12 @@ class MpdController:
 
         def current_song(self):
             self.client.connect(self.address, self.port)
-            songdic = self.client.currentsong()
-            title = songdic['title']
-            artist = songdic['artist']
+            song_dict = self.client.currentsong()
+            if not bool(song_dict):
+                self.client.disconnect()
+                return None
+            title = song_dict['title']
+            artist = song_dict['artist']
             ans = "The song is " + title + " by " + artist
             self.client.disconnect()
             return ans
@@ -101,7 +105,9 @@ class MpdController:
         def play_tids(self, tids):
             self.client.connect(self.address, self.port)
             self.client.clear()
+            self.client.disconnect()
             self.add_to_current(tids)
+            self.client.connect(self.address, self.port)
             self.client.play(0)
             self.client.disconnect()
 
@@ -114,6 +120,7 @@ class MpdController:
             self.client.disconnect()
 
         def set_sleep_timer(self, duration):
+            # TODO implement non blocking waiting
             time.sleep(duration)
             self.client.connect(self.address, self.port)
             self.client.stop()
