@@ -1,0 +1,6 @@
+{
+  "(?i).*?(?=what is the meaning of life)+.": "42",
+  "(?i).*?(?=hello there)+.": "General Kenobi!",
+  "(?i).*?(?=not just the men)+.": "But the women and children too",
+  "(?i).*?(?=did you hear about the story of darth plagueis)+.": "It's not a story the jedi would tell you!"
+}
