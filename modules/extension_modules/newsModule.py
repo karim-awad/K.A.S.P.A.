@@ -30,14 +30,35 @@ class NewsModule(AbstractBriefingModule):
             subprocess.call(command, shell=True, stderr=devnull, stdout=devnull, stdin=devnull)
             devnull.close()
 
+    @staticmethod
+    def text_news():
+        url = "http://www.spiegel.de/schlagzeilen/tops/index.rss"
+
+        response = urllib.request.urlopen(url).read()
+        soup = Bs(response, features="xml")
+
+        items = soup.findAll("item")
+        news = ''
+        count = 5
+        for item in items:
+            news = news + item.title.string + "\n" + item.description.string + "\n\n"
+            if count is 0:
+                break
+            else:
+                count -= 1
+        return news
+
     def action(self, query):
         communicator = query.get_communicator()
-        t = self.Process()
-        t.start()
-        communicator.say("I'll now play today's latest episode of Tagesschau in 100 Sekunden")
-        t.join()
-        devnull = open(os.devnull, 'w')
-        subprocess.call("play /tmp/audio.wav", shell=True, stderr=devnull, stdout=devnull, stdin=devnull)
-        subprocess.call("rm -f /tmp/audio.wav /tmp/tagesschau.mp4", shell=True, stderr=devnull, stdout=devnull,
-                        stdin=devnull)
-        devnull.close()
+        if communicator.is_text_based():
+            communicator.say("These are your news: \n" + self.text_news())
+        else:
+            t = self.Process()
+            t.start()
+            communicator.say("I'll now play today's latest episode of Tagesschau in 100 Sekunden")
+            t.join()
+            devnull = open(os.devnull, 'w')
+            subprocess.call("play /tmp/audio.wav", shell=True, stderr=devnull, stdout=devnull, stdin=devnull)
+            subprocess.call("rm -f /tmp/audio.wav /tmp/tagesschau.mp4", shell=True, stderr=devnull, stdout=devnull,
+                            stdin=devnull)
+            devnull.close()

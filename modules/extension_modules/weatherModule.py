@@ -50,7 +50,7 @@ class WeatherModule(AbstractBriefingModule):
         return ret
 
     def briefing_action(self, query):
-        query.get_communicator().say(self.get_day())
+        query.get_communicator().say("Now the weather: " + self.get_day())
 
     def action(self, query):
         communicator = query.get_communicator()

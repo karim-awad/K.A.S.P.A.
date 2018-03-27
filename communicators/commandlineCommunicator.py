@@ -13,7 +13,7 @@ class CommandlineCommunicator(AbstractTextCommunicator):
 
     def start_conversation(self):
         while True:
-            query_text = self.ask("How can I help you")
+            query_text = self.ask("How can I help you?")
             if query_text is "quit":
                 self.say("Goodbye")
                 exit(0)
