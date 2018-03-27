@@ -3,6 +3,7 @@
   "(?i).*?(?=who are you)+.": "I am Kaspa, your personal assistant. I can help you with your everyday tasks",
   "(?i).*?(?=what are you)+.": "I am Kaspa, your personal assistant. I can help you with your everyday tasks",
   "(?i).*?(?=what does kaspa stand for)+.": "Kaspa is an abbreviation for Kaspa, A Simple Python Assistant",
+  "(?i).*?(?=can you hear me)+.": "Of course I can. My microphones are still great for my age.",
   "(?i).*?(?=who created you)+.": "I was created by Karim Awad",
   "(?i).*?(?=how old are you)+.": "I don't know actually. Maybe around one and a half years",
   "(?i).*?(?=what is your favourite)+.": "I don't really have any preferences",
