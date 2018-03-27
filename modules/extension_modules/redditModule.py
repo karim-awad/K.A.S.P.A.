@@ -1,11 +1,11 @@
-from modules.abstract_modules.abstractModule import AbstractModule
+from modules.abstract_modules.abstractBriefingModule import AbstractBriefingModule
 from config import Config
 
 import praw
 import random
 
 
-class RedditModule(AbstractModule):
+class RedditModule(AbstractBriefingModule):
     key_regexes = ['(?i).*?(?=tell)+.+?(?=joke)+.', '(?i).*?(?=tell)+.+?(?=thought)+.'
         , '(?i).*?(?=tell)+.+?(?=fact)+.']
 
@@ -37,6 +37,12 @@ class RedditModule(AbstractModule):
     def get_top(self, subreddit):
         posts = list(self.reddit.subreddit(subreddit).top(limit=1, time_filter='day'))
         return posts[0]
+
+    def briefing_action(self, query):
+        communicator = query.get_communicator()
+        submission = self.get_random("showerthoughts", 100)
+        thought = "Here is a random thought for you: " + submission.title + "\n" + submission.selftext
+        communicator.say(thought)
 
     def action(self, query):
         communicator = query.get_communicator()

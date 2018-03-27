@@ -14,8 +14,8 @@ class CommandlineCommunicator(AbstractTextCommunicator):
     def start_conversation(self):
         while True:
             query_text = self.ask("How can I help you")
-            if input is "quit":
+            if query_text is "quit":
                 self.say("Goodbye")
-                break
+                exit(0)
             Core.answer(self, query_text)
 

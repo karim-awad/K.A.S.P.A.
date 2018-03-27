@@ -42,14 +42,14 @@ def init_modules():
         hue_module = HueModule()
         hue_module.activate()
 
-        reddit_module = RedditModule()
-        reddit_module.activate()
-
         time_module = TimeModule()
         time_module.activate()
 
         mensa_module = MensaModule()
         mensa_module.activate()
+
+        reddit_module = RedditModule()
+        reddit_module.activate()
 
         weather_module = WeatherModule()
         weather_module.activate()
@@ -102,7 +102,7 @@ def main():
 
     # Initialize Config
     Config.set_instance(config_dir_path)
-    Config.get_instance().modules_load()
+    Config.get_instance().load_modules()
 
     # Start mopidy server
     devnull = open(os.devnull, 'w')

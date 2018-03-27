@@ -1,11 +1,11 @@
 from modules.moduleException import ModuleException
 from modules.extension_modules.helper.spotify import Spotify
-from modules.abstract_modules.abstractModule import AbstractModule
+from modules.abstract_modules.abstractMediaModule import AbstractMediaModule
 from modules.extension_modules.helper.mpdController import MpdController
 from config import Config
 
 
-class SpotifyModule(AbstractModule):
+class SpotifyModule(AbstractMediaModule):
     key_regexes = ['(?i).*?(?=continue)+.+?(?=playback)+.', '(?i).*?(?=pause)+.', '(?i).*?(?=play)+.',
                    '(?i).*?(?=next)+.', '(?i).*?(?=stop)+.', '(?i).*?(?=what)+.+?(?=song)+.']
 
@@ -55,6 +55,19 @@ class SpotifyModule(AbstractModule):
         spotify = Spotify()
         tids = spotify.get_saved(min_length=49)
         MpdController.get_instance().play_tids(tids)
+
+    def play(self):
+        mpd_controller = MpdController.get_instance()
+        mpd_controller.play()
+
+    def pause(self):
+        mpd_controller = MpdController.get_instance()
+        mpd_controller.pause()
+
+    def is_playing(self):
+        mpd_controller = MpdController.get_instance()
+        if mpd_controller.get_state()["state"] == "play":
+            return True
 
     def action(self, query):
         text = query.get_text()

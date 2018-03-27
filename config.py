@@ -48,6 +48,7 @@ class Config(object):
             module_manager = ModuleManager.get_instance()
             for module in module_manager.get_modules():
                 if not communicator.ask_bool("Do you want to use the " + module.get_name() + " module?"):
+                    # TODO disable possibility to turn of core modules
                     module.deactivate()
                     continue
 
@@ -71,7 +72,7 @@ class Config(object):
             """reloads the config file"""
             self.config.read(self.path + Config.CONFIG_NAME)
 
-        def modules_load(self):
+        def load_modules(self):
             module_manager = ModuleManager.get_instance()
 
             for module in module_manager.get_modules():

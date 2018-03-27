@@ -11,6 +11,9 @@ class ModuleManager(object):
         briefing_modules = list()
         """List of all manageable briefing modules"""
 
+        media_modules = list()
+        """List of all manageable media modules"""
+
         def add_module(self, module):
             """adds module to the list
                 @param module module to be added"""
@@ -37,7 +40,21 @@ class ModuleManager(object):
 
         def get_briefing_modules(self):
             """@return list of all briefing_modules"""
-            return self.briefing_modules
+            return self.media_modules
+
+        def add_media_module(self, media_module):
+            """adds module to the list
+                @param media_module module to be added"""
+            self.media_modules.append(media_module)
+
+        def remove_media_module(self, media_module):
+            """removes briefing module from the list
+                @param media_module module to be removed"""
+            self.media_modules.remove(media_module)
+
+        def get_media_modules(self):
+            """@return list of all briefing_modules"""
+            return self.media_modules
 
     @staticmethod
     def get_instance():
