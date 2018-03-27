@@ -3,19 +3,20 @@ import os
 import subprocess
 from config import Config
 from pathlib import Path
-from modules.conversationModule import ConversationModule
-from modules.googleMapsModule import GoogleMapsModule
-from modules.hueModule import HueModule
-from modules.newsModule import NewsModule
-from modules.redditModule import RedditModule
-from modules.mensaModule import MensaModule
-from modules.timeModule import TimeModule
-from modules.weatherModule import WeatherModule
-from modules.spotifyModule import SpotifyModule
-from modules.wikipediaModule import WikipediaModule
-from modules.wolframAlphaModule import WolframAlphaModule
+from modules.core_modules.dailyBriefingModule import DailyBriefingModule
+from modules.core_modules.conversationModule import ConversationModule
+from modules.extension_modules.googleMapsModule import GoogleMapsModule
+from modules.extension_modules.hueModule import HueModule
+from modules.extension_modules.newsModule import NewsModule
+from modules.extension_modules.redditModule import RedditModule
+from modules.extension_modules.mensaModule import MensaModule
+from modules.core_modules.timeModule import TimeModule
+from modules.extension_modules.weatherModule import WeatherModule
+from modules.extension_modules.spotifyModule import SpotifyModule
+from modules.extension_modules.wikipediaModule import WikipediaModule
+from modules.extension_modules.wolframAlphaModule import WolframAlphaModule
 
-from moduleException import ModuleException
+from modules.moduleException import ModuleException
 
 # from voiceCommunicator import VoiceCommunicator
 from communicators.commandlineCommunicator import CommandlineCommunicator
@@ -26,6 +27,9 @@ logger = None
 def init_modules():
     """initializes the wanted modules"""
     try:
+        daily_briefing_module = DailyBriefingModule()
+        daily_briefing_module.activate()
+
         conversation_module = ConversationModule()
         conversation_module.activate()
 
@@ -38,20 +42,20 @@ def init_modules():
         hue_module = HueModule()
         hue_module.activate()
 
-        news_module = NewsModule()
-        news_module.activate()
-
         reddit_module = RedditModule()
         reddit_module.activate()
-
-        mensa_module = MensaModule()
-        mensa_module.activate()
 
         time_module = TimeModule()
         time_module.activate()
 
+        mensa_module = MensaModule()
+        mensa_module.activate()
+
         weather_module = WeatherModule()
         weather_module.activate()
+
+        news_module = NewsModule()
+        news_module.activate()
 
         wikipedia_module = WikipediaModule()
         wikipedia_module.activate()

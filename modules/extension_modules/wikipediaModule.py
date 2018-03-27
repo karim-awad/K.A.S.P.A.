@@ -1,6 +1,6 @@
 import wikipedia as wiki
-import modules.helper.comandOps as Co
-from abstractModule import AbstractModule
+import modules.extension_modules.helper.comandOps as Co
+from modules.abstract_modules.abstractModule import AbstractModule
 
 
 class WikipediaModule(AbstractModule):

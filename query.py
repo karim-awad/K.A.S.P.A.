@@ -17,6 +17,11 @@ class Query:
         """@return string text of the query"""
         return self.text
 
+    def set_text(self, text):
+        """Setter method
+        @param String text"""
+        self.text = text
+
     def get_communicator(self):
         """@return communicator used to submit query"""
         return self.communicator

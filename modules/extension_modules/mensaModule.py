@@ -1,10 +1,10 @@
 import urllib.request
 from textblob import TextBlob
 from bs4 import BeautifulSoup as Bs
-from abstractModule import AbstractModule
+from modules.abstract_modules.abstractBriefingModule import AbstractBriefingModule
 
 
-class MensaModule(AbstractModule):
+class MensaModule(AbstractBriefingModule):
 
     key_regexes = ['(?i).*?(?=what)+.+?(?=on the menu)+.']
 

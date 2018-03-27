@@ -2,7 +2,7 @@ import logging
 import re
 #from langdetect import detect
 from query import Query
-from moduleManager import ModuleManager as mManager
+from modules.moduleManager import ModuleManager as mManager
 
 logger = logging.getLogger('Kaspa')
 

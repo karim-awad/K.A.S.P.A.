@@ -1,4 +1,4 @@
-from abstractModule import AbstractModule
+from modules.abstract_modules.abstractModule import AbstractModule
 from config import Config
 
 import praw

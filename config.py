@@ -1,8 +1,7 @@
 from configparser import ConfigParser
 from configparser import RawConfigParser
 from communicators.commandlineCommunicator import CommandlineCommunicator
-from moduleManager import ModuleManager
-from pathlib import Path
+from modules.moduleManager import ModuleManager
 import os
 
 

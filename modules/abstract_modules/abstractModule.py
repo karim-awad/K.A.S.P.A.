@@ -1,5 +1,5 @@
 import logging
-from moduleManager import ModuleManager as mManager
+from modules.moduleManager import ModuleManager as mManager
 
 
 class AbstractModule(object):

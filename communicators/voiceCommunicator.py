@@ -1,13 +1,14 @@
 import resources.snowboy.snowboydecoder as snowboydecoder
 from gtts import gTTS
 from Kaspa import assistantCore
+# TODO add resources and make it work
 import os
 import speech_recognition as sr
-from abstractCommunicator import AbstractCommunicator
+from communicators.abstract_communicators.abstractVoiceCommunicator import AbstractVoiceCommunicator
 import logging
 
 
-class VoiceCommunicator(AbstractCommunicator):
+class VoiceCommunicator(AbstractVoiceCommunicator):
     logger = logging.getLogger("Kaspa")
 
     # Snowboy config values
@@ -25,8 +26,6 @@ class VoiceCommunicator(AbstractCommunicator):
 
     recognizer = None
     """Recognizer used for text to speech"""
-
-    text_based = False
 
     @staticmethod
     def notify_starting_listening():

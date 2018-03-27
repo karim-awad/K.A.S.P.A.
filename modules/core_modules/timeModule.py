@@ -1,8 +1,8 @@
-from abstractModule import AbstractModule
+from modules.abstract_modules.abstractBriefingModule import AbstractBriefingModule
 import time
 
 
-class TimeModule(AbstractModule):
+class TimeModule(AbstractBriefingModule):
 
     key_regexes = ['(?i).*?(?=what)+.+?(?=time)+.']
 

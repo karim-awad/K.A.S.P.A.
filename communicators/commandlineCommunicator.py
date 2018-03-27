@@ -1,11 +1,9 @@
-from abstractCommunicator import AbstractCommunicator
+from communicators.abstract_communicators.abstractTextCommunicator import AbstractTextCommunicator
 import assistantCore as Core
 
 
-class CommandlineCommunicator(AbstractCommunicator):
+class CommandlineCommunicator(AbstractTextCommunicator):
     """simple communicator for commandline usage"""
-
-    text_based = True
 
     def say(self, text):
         print("Kaspa: " + text)

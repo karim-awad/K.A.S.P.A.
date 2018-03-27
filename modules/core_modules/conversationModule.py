@@ -1,4 +1,4 @@
-from abstractModule import AbstractModule
+from modules.abstract_modules.abstractModule import AbstractModule
 import json
 import re
 import os
@@ -13,13 +13,15 @@ class ConversationModule(AbstractModule):
 
     conversations = dict()
 
+    CONVERSATIONS_PATH = "modules/core_modules/resources/conversations/"
+
     def __init__(self):
         # iterate over all json files in the directory
         self.logger.info("loading the conversation files...")
-        conversation_dir = os.listdir("modules/resources/conversations")
+        conversation_dir = os.listdir(ConversationModule.CONVERSATIONS_PATH)
         for file in conversation_dir:
             if ".json" in file:
-                json_file = open("modules/resources/conversations/" + file, "r")
+                json_file = open(ConversationModule.CONVERSATIONS_PATH + file, "r")
                 # merge two dictionaries
                 self.conversations = {**json.load(json_file), **self.conversations}
                 self.logger.info(file + " loaded")

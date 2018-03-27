@@ -3,10 +3,10 @@ from bs4 import BeautifulSoup as Bs
 import subprocess
 import threading
 import os
-from abstractModule import AbstractModule
+from modules.abstract_modules.abstractBriefingModule import AbstractBriefingModule
 
 
-class NewsModule(AbstractModule):
+class NewsModule(AbstractBriefingModule):
     key_regexes = ['(?i).*?(?=news)+.']
 
     module_name = "News"
@@ -34,7 +34,7 @@ class NewsModule(AbstractModule):
         communicator = query.get_communicator()
         t = self.Process()
         t.start()
-        communicator.say("I'll now play today's latest news briefing...")
+        communicator.say("I'll now play today's latest episode of Tagesschau in 100 Sekunden")
         t.join()
         devnull = open(os.devnull, 'w')
         subprocess.call("play /tmp/audio.wav", shell=True, stderr=devnull, stdout=devnull, stdin=devnull)

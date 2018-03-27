@@ -1,9 +1,9 @@
 import forecastio
-from abstractModule import AbstractModule
+from modules.abstract_modules.abstractBriefingModule import AbstractBriefingModule
 from config import Config
 
 
-class WeatherModule(AbstractModule):
+class WeatherModule(AbstractBriefingModule):
     key_regexes = ['(?i).*?(?=how)+.+?(?=weather)+.']
 
     module_name = "Weather"
@@ -48,6 +48,9 @@ class WeatherModule(AbstractModule):
         else:
             ret = "There is going to be " + summary
         return ret
+
+    def briefing_action(self, query):
+        query.get_communicator().say(self.get_day())
 
     def action(self, query):
         communicator = query.get_communicator()

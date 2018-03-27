@@ -1,9 +1,9 @@
 import phue
 from phue import Bridge
-from modules.helper import ifttt
-from abstractModule import AbstractModule
+from modules.extension_modules.helper import ifttt
+from modules.abstract_modules.abstractModule import AbstractModule
 from config import Config
-from moduleException import ModuleException
+from modules.moduleException import ModuleException
 
 
 class HueModule(AbstractModule):

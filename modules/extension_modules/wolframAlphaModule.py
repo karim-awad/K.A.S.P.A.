@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import urllib.request
 #from PIL import Image
-from abstractModule import AbstractModule
+from modules.abstract_modules.abstractModule import AbstractModule
 from config import Config
 
 

@@ -1,7 +1,7 @@
-from moduleException import ModuleException
-from modules.helper.spotify import Spotify
-from abstractModule import AbstractModule
-from modules.helper.mpdController import MpdController
+from modules.moduleException import ModuleException
+from modules.extension_modules.helper.spotify import Spotify
+from modules.abstract_modules.abstractModule import AbstractModule
+from modules.extension_modules.helper.mpdController import MpdController
 from config import Config
 
 
@@ -10,6 +10,8 @@ class SpotifyModule(AbstractModule):
                    '(?i).*?(?=next)+.', '(?i).*?(?=stop)+.', '(?i).*?(?=what)+.+?(?=song)+.']
 
     module_name = "Spotify"
+
+    # TODO config
 
     @staticmethod
     def continue_playback():
