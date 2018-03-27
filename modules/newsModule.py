@@ -25,7 +25,7 @@ class NewsModule(AbstractModule):
             file.write(video)
             file.close()
 
-            command = "ffmpeg -i /tmp/tagesschau.mp4 -ab 160k -ac 2 -ar 44100 -vn /tmp/audio.wav > /dev/null"
+            command = "ffmpeg -i /tmp/tagesschau.mp4 -ab 160k -ac 2 -ar 44100 -vn /tmp/audio.wav"
             devnull = open(os.devnull, 'w')
             subprocess.call(command, shell=True, stderr=devnull, stdout=devnull, stdin=devnull)
             devnull.close()
@@ -37,7 +37,7 @@ class NewsModule(AbstractModule):
         communicator.say("I'll now play today's latest news briefing...")
         t.join()
         devnull = open(os.devnull, 'w')
-        subprocess.call("play /tmp/audio.wav > /dev/null", shell=True, stderr=devnull, stdout=devnull, stdin=devnull)
+        subprocess.call("play /tmp/audio.wav", shell=True, stderr=devnull, stdout=devnull, stdin=devnull)
         subprocess.call("rm -f /tmp/audio.wav /tmp/tagesschau.mp4", shell=True, stderr=devnull, stdout=devnull,
                         stdin=devnull)
         devnull.close()

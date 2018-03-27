@@ -11,7 +11,8 @@ class SpotifyModule(AbstractModule):
 
     module_name = "Spotify"
 
-    def continue_playback(self):
+    @staticmethod
+    def continue_playback():
         spotify = Spotify()
         mpd_controller = MpdController.get_instance()
         song = spotify.get_currently_playing()
@@ -22,27 +23,42 @@ class SpotifyModule(AbstractModule):
             mpd_controller.play_tid(song["item"]["uri"], time)
             if song["context"] is not None:
                 if song["context"]["type"] == "playlist":
+                    # fetch rest of the playlist
                     mpd_controller.add_to_current(spotify.read_playlist(song["context"]["uri"], song["item"]["uri"]))
-                else:
-                    raise ModuleException("Spotify", "Cannot find current context")
+                    return
+
+                if song["context"]["type"] == "album":
+                    # fetch rest of the album
+                    mpd_controller.add_to_current(spotify.get_album_tracks(song["context"]["uri"], song["item"]["uri"]))
+                    return
+
+                if song["context"]["type"] == "artist":
+                    # fetch rest of the artist songs
+                    mpd_controller.add_to_current(spotify.get_artist_songs(song["context"]["uri"], song["item"]["uri"]))
+                    return
+
+                raise ModuleException("Spotify", "Cannot process current context: " + song["context"]["type"])
                     # TODO implement other contexts
             else:
                 mpd_controller.add_to_current(spotify.get_saved(10, song["item"]["uri"]))
 
-    def play_search(self, query):
+    @staticmethod
+    def play_search(query):
         spotify = Spotify()
         song = spotify.search(query)
         MpdController.get_instance().play_tid(song["uri"])
 
-    def play_saved(self):
+    @staticmethod
+    def play_saved():
         spotify = Spotify()
-        tids = spotify.get_saved()
+        tids = spotify.get_saved(min_length=49)
         MpdController.get_instance().play_tids(tids)
 
     def action(self, query):
         text = query.get_text()
         communicator = query.get_communicator()
         mpd_controller = MpdController.get_instance()
+        spotify = Spotify()
 
         if "continue" in text and "playback" in text:
             communicator.say("I am now continuing your music playback.")
@@ -54,17 +70,20 @@ class SpotifyModule(AbstractModule):
             communicator.say("Music paused.")
             return
 
-        # TODO implement playlist playing
-        # playlists = Config.get_instance().get_section_content('playlists')
-        # for playlist in playlists:
-        #     if playlist[0] in text:
-        #        mpd_controller.play_playlist(playlist[1])
-        #        communicator.say("Okay, playing " + playlist[0])
-        #        return
+        # fetch all playlist macros from config file and search for matches in the query
+        playlists = Config.get_instance().get_section_content('playlists')
+        for playlist in playlists:
+            if playlist[0] in text:
+                tids = spotify.read_playlist(playlist[1])
+                mpd_controller.play_tids(tids, shuffle=True)
+                communicator.say("Okay, playing " + playlist[0])
+                return
 
         if "play" in text:
             if mpd_controller.current_song() is None:
                 self.play_saved()
+                communicator.say("Okay, playing your last added songs.")
+                return
             mpd_controller.play()
             communicator.say("Okay")
             return

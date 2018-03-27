@@ -102,9 +102,10 @@ def main():
 
     # Start mopidy server
     devnull = open(os.devnull, 'w')
+    logger.info("Starting mopidy server...")
     subprocess.call("killall mopidy", shell=True, stderr=devnull, stdout=devnull, stdin=devnull)
     subprocess.call("mopidy -q &", shell=True, stderr=devnull, stdout=devnull, stdin=devnull)
-
+    logger.info("Mopidy server started")
 
     # start communicators
     logger.info("Starting Communicators...")

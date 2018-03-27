@@ -45,14 +45,14 @@ class Spotify:
         most_popular = results[0]
         return most_popular
 
-    def get_saved(self, start_song=None):
+    def get_saved(self, min_length=50, start_song=None):
         saved = self.spotipy.current_user_saved_tracks(limit=50)
         id_list = []
         for item in saved["items"]:
             id_list.append(item["track"]["uri"])
         i = 1
         new = self.spotipy.current_user_saved_tracks(limit=50, offset=i * 50)
-        while len(new["items"]) > 1:
+        while 1 < len(new["items"]) <= min_length:
             for item in new["items"]:
                 id_list.append(item["track"]["uri"])
             i = i + 1
@@ -76,10 +76,22 @@ class Spotify:
             print(track['name'], '-', track['artists'][0]['name'])
         return results['tracks']
 
-    def get_artist_songs(self, artist):
-        urn = self.get_artist_id(artist)
-        response = self.spotipy.artist_top_tracks(urn)
-        return response['tracks']
+    def get_artist_songs(self, artist, start_song=None):
+        response = self.spotipy.artist_top_tracks(artist)
+        tracks = response["tracks"]
+        ids = list()
+        add_song = True
+        for track in tracks:
+            if start_song is not None:
+                if track["uri"] == start_song:
+                    # TODO somehow the two uri for the same song are not identical
+                    add_song = True
+                    continue
+                if add_song:
+                    ids.append(track["uri"])
+            else:
+                ids.append(track["uri"])
+        return ids
 
     def get_artist(self, name):
         results = self.spotipy.search(q='artist:' + name, type='artist')
@@ -89,16 +101,24 @@ class Spotify:
         else:
             return None
 
-    def get_album_tracks(self, album):
+    def get_album_tracks(self, album, start_song=None):
         tracks = []
         results = self.spotipy.album_tracks(album)
         tracks.extend(results['items'])
         while results['next']:
             results = self.spotipy.next(results)
             tracks.extend(results['items'])
-        ids = []
+        ids = list()
+        add_song = False
         for track in tracks:
-            ids.append(track["uri"])
+            if start_song is not None:
+                if track["uri"] == start_song:
+                    add_song = True
+                    continue
+                if add_song:
+                    ids.append(track["uri"])
+            else:
+                ids.append(track["uri"])
         return ids
 
     def show_artist_albums(self, artist):

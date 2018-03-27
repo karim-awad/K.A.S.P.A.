@@ -102,12 +102,14 @@ class MpdController:
                 self.client.findadd("Filename", tid)
             self.client.disconnect()
 
-        def play_tids(self, tids):
+        def play_tids(self, tids, shuffle=False):
             self.client.connect(self.address, self.port)
             self.client.clear()
             self.client.disconnect()
             self.add_to_current(tids)
             self.client.connect(self.address, self.port)
+            if shuffle:
+                self.client.random(1)
             self.client.play(0)
             self.client.disconnect()
 
