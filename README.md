@@ -1,7 +1,6 @@
 # K.A.S.P.A.
 K.A.S.P.A., a simple python assistant.
-This is a refactoring of an assistant for a raspberry pi that
-I had developed some months ago. It is still a work in progess and
+This project is still a work in progess and
 the code of some modules might still be a bit messy.
 The goal of this project is to develop an assistant that works as
 simple as possible, while offering all options one could want from a
