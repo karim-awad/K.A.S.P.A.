@@ -4,11 +4,11 @@ setup(
     name='K.A.S.P.A',
     version='0.5',
     packages=find_packages(),
-    url='https://github.com/karim-awad/K.A.S.P.A.',
+    url='https://github.com/karim-awad/kaspa',
     license='MIT',
     author='Karim Awad',
     author_email='dev@awad.cloud',
     description='K.A.S.P.A, a simple python assistant',
     install_requires=['beautifulsoup4', 'praw', 'python-forecastio', 'googlemaps', 'phue', 'textblob', 'wikipedia',
-                      'requests', 'python-mpd', 'spotipy']
+                      'requests', 'python-mpd2', 'spotipy', 'configparser']
 )

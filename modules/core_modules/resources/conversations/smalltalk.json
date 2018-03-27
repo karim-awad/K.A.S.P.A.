@@ -9,6 +9,4 @@
   "(?i).*?(?=what is your favourite)+.": "I don't really have any preferences",
   "(?i).*?(?=what is your favorite)+.": "I don't really have any preferences",
   "(?i).*?(?=good night)+.": "Good night! Sweet dreams!"
-
-
 }

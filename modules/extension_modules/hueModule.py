@@ -13,24 +13,26 @@ class HueModule(AbstractModule):
     config_parameters = {"bridge_ip": "Enter the ip adress of your Philips Hue Bridge here. Make sure, that you have"
                                       " pressed the button on the bridge before hitting enter."}
 
-    b = None
+    bridge = None
 
     def configure(self):
         try:
             bridge_ip = Config.get_instance().get("hue", "bridge_ip")
-            self.b = Bridge(bridge_ip)
+            self.bridge = Bridge(bridge_ip)
         except phue.PhueRegistrationException:
             raise ModuleException(self.module_name, "Philips Hue Bridge Button not pressed!")
 
     def off(self):
-        self.b.set_group(1, 'on', False)
+        self.bridge.set_group(1, 'on', False)
 
     def on(self):
-        self.b.set_group(1, 'on', True)
+        self.bridge.set_group(1, 'on', True)
 
-    def scene(self, chosen_scene):
+    @staticmethod
+    def scene(chosen_scene):
         assert chosen_scene in ["chillig"]
         if chosen_scene is "chillig":
+            # the event has to be created on ifttt.com first
             ifttt.send_event("huescene")
 
     def action(self, query):

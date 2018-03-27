@@ -5,6 +5,7 @@ from config import Config
 from pathlib import Path
 from modules.core_modules.dailyBriefingModule import DailyBriefingModule
 from modules.core_modules.conversationModule import ConversationModule
+from modules.core_modules.exampleCommandModule import ExampleCommandModule
 from modules.extension_modules.googleMapsModule import GoogleMapsModule
 from modules.extension_modules.hueModule import HueModule
 from modules.extension_modules.newsModule import NewsModule
@@ -29,6 +30,9 @@ def init_modules():
     try:
         daily_briefing_module = DailyBriefingModule()
         daily_briefing_module.activate()
+
+        example_command_module = ExampleCommandModule()
+        example_command_module.activate()
 
         conversation_module = ConversationModule()
         conversation_module.activate()

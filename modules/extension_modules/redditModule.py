@@ -48,6 +48,8 @@ class RedditModule(AbstractBriefingModule):
         communicator = query.get_communicator()
         if "joke" in query.get_text():
             submission = self.get_random("jokes", 100)
+            while len(submission.selftext) > 500: # make sure the jokes aren't too long. not a high performance solution
+                submission = self.get_random("jokes", 100)
             joke = submission.title + "\n" + submission.selftext
             communicator.say(joke)
 

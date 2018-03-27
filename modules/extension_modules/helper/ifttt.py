@@ -4,6 +4,7 @@
 import requests
 from config import Config
 
+
 def send_event(event, value1=None, value2=None, value3=None):
     """Send an event to the IFTTT maker channel
     Parameters:
