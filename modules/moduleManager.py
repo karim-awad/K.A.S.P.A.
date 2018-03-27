@@ -40,7 +40,7 @@ class ModuleManager(object):
 
         def get_briefing_modules(self):
             """@return list of all briefing_modules"""
-            return self.media_modules
+            return self.briefing_modules
 
         def add_media_module(self, media_module):
             """adds module to the list
