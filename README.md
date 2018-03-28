@@ -20,3 +20,4 @@ For more details about the modules check the documentation in the code.
 
 ## Dependencies
 This section will be added, once a release version gets pushed.
+Needed libraries: libxml2-dev libxslt-dev
