@@ -4,7 +4,7 @@ from Kaspa.modules.submoduleManager import SubmoduleManager
 import Kaspa.strings.strings as strings
 
 
-class AbstractModule(object):
+class AbstractSubModule(object):
     """Abstract class for all plugin modules"""
 
     logger = logging.getLogger('Kaspa')
@@ -22,32 +22,12 @@ class AbstractModule(object):
 
     language = ''
 
-    submodules = dict()
-
-    def __init__(self):
-        self.submodules = dict()
-
-    def get_submodule(self, language):
-        return self.submodules[language]
-
-    def add_submodule(self, submodule):
-        self.submodules.update({submodule.get_language(): submodule})
-        submodule.set_main_module(self)
+    main_module = None
 
     def configure(self):
         """reads its needed parameters from the config file"""
         self.logger.info(self.__class__.__name__ + " is configured")
         # self.strings = strings.get_strings(self.__class__.__name__)
-
-    def activate(self):
-        """activates the module"""
-        mManager.get_instance().add_module(self)
-        self.logger.info(self.__class__.__name__ + " activated")
-
-    def deactivate(self):
-        """deactivates the module"""
-        mManager.get_instance().remove_module(self)
-        self.logger.info(self.__class__.__name__ + " deactivated")
 
     def get_config_parameters(self):
         """Getter Method
@@ -58,6 +38,9 @@ class AbstractModule(object):
         """Getter Method
             @return String name"""
         return self.module_name
+
+    def set_main_module(self, main_module):
+        self.main_module = main_module
 
     def get_language(self):
         return self.language

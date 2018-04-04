@@ -1,0 +1,6 @@
+{
+  "NO_MODULES": "Sorry, aber es sind keine Module installiert.",
+  "UNKNOWN_ERROR": "Da ist leider etwas schief gelaufen. In den logs findest Du mehr Informationen.",
+  "KNOWN_ERROR": "Sorry, aber ",
+  "NOT_PROCESSABLE": "Sorry, ich weiß nicht, wie ich das verarbeiten soll."
+}

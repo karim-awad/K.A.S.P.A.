@@ -66,9 +66,8 @@ class MpdController:
                 return None
             title = song_dict['title']
             artist = song_dict['artist']
-            ans = "The song is " + title + " by " + artist
             self.client.disconnect()
-            return ans
+            return title, artist
 
         def play_playlist(self, playlist):
             self.client.connect(self.address, self.port)

@@ -5,6 +5,8 @@ from Kaspa.modules.moduleManager import ModuleManager as mManager
 class AbstractBriefingModule(AbstractModule):
     """Abstract class for briefing modules"""
 
+    # TODO adapt to new language model
+
     def briefing_action(self, query):
         """this method gets called as part of the briefing functionality of K.A.S.P.A.
             this could e.g be the weather report or the latest news. if the module does not define this method,

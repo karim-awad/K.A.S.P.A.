@@ -1,31 +1,42 @@
 import logging
 import re
-#from langdetect import detect
 from Kaspa.query import Query
 from Kaspa.modules.moduleManager import ModuleManager as mManager
+from Kaspa.modules.exceptions.moduleError import ModuleError
+from Kaspa.modules.exceptions.impossibleActionError import ImpossibleActionError
+import Kaspa.strings.strings as strings
+from Kaspa.config import Config
 
-logger = logging.getLogger('Kaspa')
 
+class AssistantCore(object):
+    logger = logging.getLogger('Kaspa')
+    strings = dict()
 
-def answer(communicator, message):
-    """let the assistant answer to the given message
-        @param communicator the communicator object used for communication
-        @param message string, the assistant should answer to"""
+    def __init__(self):
+        self.strings = strings.get_strings("assistantCore")
 
-    query = Query(message.lower(), communicator, "en")  # detect(message))
-    modules = mManager.get_instance().get_modules()
-    if not modules:
-        communicator.say("Sorry, there are no modules installed")
-        return
-    for module in modules:
-        """traverse modules and match their regex keys"""
-        for key_regex in module.get_key_regexes():
-            if re.match(key_regex, message):
-                try:
-                    module.action(query)
-                except Exception as e:
-                    communicator.say("I am sorry, something went wrong. Check the logs for more information.")
-                    logger.error(str(e))
-                return
-    communicator.say("Sorry, I don't know how to process that!")
+    def answer(self, communicator, message):
+        """let the assistant answer to the given message
+            @param communicator the communicator object used for communication
+            @param message string, the assistant should answer to"""
+        language = Config.get_instance().get("general", "language")
+        query = Query(message.lower(), communicator, language)
+        modules = mManager.get_instance().get_modules()
+        if not modules:
+            communicator.say(self.strings["NO_MODULES"])
+            return
+        for module in modules:
+            """traverse modules and match their regex keys"""
+            module = module.get_submodule(query.get_language())
+            for key_regex, method in module.get_key_regexes().items():
+                if re.match(key_regex, message):
+                    try:
+                        method(module, query)
+                    except ImpossibleActionError as e:
+                        communicator.say(self.strings["KNOWN_ERROR"] + str(e))
+                    except ModuleError as e:
+                        communicator.say(self.strings["UNKNOWN_ERROR"])
+                        self.logger.error(str(e))
+                    return
+        communicator.say(self.strings["NOT_PROCESSABLE"])
 

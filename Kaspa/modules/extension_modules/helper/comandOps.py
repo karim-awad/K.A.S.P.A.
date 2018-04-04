@@ -16,9 +16,9 @@ def get_sentences(text, amount):
     ret = []
     for word in words:
         ret.append(word)
-        tmp = word[::-1]
+        tmp = word[::-1] # turn around
         if tmp[0] == ".":
-            if len(tmp)> 2:
+            if len(tmp)> 3:
                 amount -= 1
             if amount == 0:
                 break
