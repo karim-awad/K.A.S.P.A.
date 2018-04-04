@@ -1,33 +1,34 @@
-from Kaspa.modules.abstract_modules.abstractModule import AbstractModule
 import json
 import re
 import os
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
 
 
-class ConversationModule(AbstractModule):
+class ConversationModuleEn(AbstractSubModule):
 
-    key_regexes = list()
-    """the keywords get dynamically loaded from multiple json files"""
+    keywords = dict()
 
     module_name = "Conversation"
 
     conversations = dict()
 
-    CONVERSATIONS_PATH = "Kaspa/modules/core_modules/resources/conversations/"
+    language = "en"
+
+    CONVERSATIONS_PATH = "Kaspa/modules/core_modules/conversation_module/resources/" + language + "/conversations/"
 
     def __init__(self):
         # iterate over all json files in the directory
         self.logger.info("loading the conversation files...")
-        conversation_dir = os.listdir(ConversationModule.CONVERSATIONS_PATH)
+        conversation_dir = os.listdir(self.CONVERSATIONS_PATH)
         for file in conversation_dir:
             if ".json" in file:
-                json_file = open(ConversationModule.CONVERSATIONS_PATH + file, "r")
+                json_file = open(self.CONVERSATIONS_PATH + file, "r")
                 # merge two dictionaries
                 self.conversations = {**json.load(json_file), **self.conversations}
                 self.logger.info(file + " loaded")
         # update regexes
         for key, answer in self.conversations.items():
-            self.key_regexes.append(key)
+            self.key_regexes[key] = self.action
 
     def action(self, query):
         message = query.get_text()

@@ -10,6 +10,11 @@ class NewsModuleDe(AbstractSubModule):
 
     language = "de"
 
+    key_regexes = dict()
+
+    def __init__(self):
+        self.key_regexes = {'(?i).*?(?=nachrichten)+.': self.action}
+
     class Process(threading.Thread):
         def run(self):
             url = "https://www.tagesschau.de/100sekunden/"
@@ -45,5 +50,3 @@ class NewsModuleDe(AbstractSubModule):
             subprocess.call("rm -f /tmp/audio.wav /tmp/tagesschau.mp4", shell=True, stderr=devnull, stdout=devnull,
                             stdin=devnull)
             devnull.close()
-
-    key_regexes = {'(?i).*?(?=nachrichten)+.': action}

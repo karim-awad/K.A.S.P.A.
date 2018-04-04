@@ -2,10 +2,17 @@ from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
 
 
 class HueModuleDe(AbstractSubModule):
-
     module_name = "Phillips Hue"
 
     language = "de"
+
+    key_regexes = dict()
+
+    def __init__(self):
+        self.key_regexes = {'(?i).*?(?=licht)+?(?=entspannung)+.': self.action_scene,
+                            '((?i).*(?=licht)+.+?(?=an)+.)|'
+                            '((?i).*?(?=licht)+.+?(?=ein)+.)': self.action_on,
+                            '((?i).*?(?=licht)+.+?(?=aus)+.)': self.action_off}
 
     def action_off(self, query):
         communicator = query.get_communicator()
@@ -21,8 +28,3 @@ class HueModuleDe(AbstractSubModule):
         communicator = query.get_communicator()
         self.main_module.scene_relaxing()
         communicator.say('Ok, ich schalte das Licht auf den Entspannungsmodus!')
-
-    key_regexes = {'(?i).*?(?=licht)+?(?=entspannung)+.': action_scene,
-                   '((?i).*(?=licht)+.+?(?=an)+.)|'
-                   '((?i).*?(?=licht)+.+?(?=ein)+.)': action_on,
-                   '((?i).*?(?=licht)+.+?(?=aus)+.)': action_off}

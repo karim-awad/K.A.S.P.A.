@@ -2,10 +2,18 @@ from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
 
 
 class HueModuleEn(AbstractSubModule):
-
     module_name = "Phillips Hue"
 
     language = "en"
+
+    key_regexes = dict()
+
+    def __init__(self):
+        self.key_regexes = {'(?i).*?(?=set)+.+?(?=light)+?(?=relaxing)+.': self.action_scene,
+                            '((?i).*?(?=turn)+.+?(?=light)+.+?(?=on)+.)|'
+                            '((?i).*?(?=turn)+.+?(?=on)+.+?(?=lights)+.)': self.action_on,
+                            '((?i).*?(?=turn)+.+?(?=light)+.+?(?=off)+.)|'
+                            '((?i).*?(?=turn)+.+?(?=off)+.+?(?=lights)+.)': self.action_off}
 
     def action_off(self, query):
         communicator = query.get_communicator()
@@ -21,9 +29,3 @@ class HueModuleEn(AbstractSubModule):
         communicator = query.get_communicator()
         self.main_module.scene_relaxing()
         communicator.say('Ok, done!')
-
-    key_regexes = {'(?i).*?(?=set)+.+?(?=light)+?(?=relaxing)+.': action_scene,
-                   '((?i).*?(?=turn)+.+?(?=light)+.+?(?=on)+.)|'
-                   '((?i).*?(?=turn)+.+?(?=on)+.+?(?=lights)+.)': action_on,
-                   '((?i).*?(?=turn)+.+?(?=light)+.+?(?=off)+.)|'
-                   '((?i).*?(?=turn)+.+?(?=off)+.+?(?=lights)+.)': action_off}

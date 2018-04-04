@@ -5,9 +5,12 @@ import subprocess
 import signal
 from Kaspa.config import Config
 from pathlib import Path
+from Kaspa.modules.core_modules.conversation_module.conversationModuleMain import ConversationModuleMain
 from Kaspa.modules.extension_modules.hue_module.hueModuleMain import HueModuleMain
+from Kaspa.modules.extension_modules.weather_module.weatherModuleMain import WeatherModuleMain
 from Kaspa.modules.extension_modules.news_module.newsModuleMain import NewsModuleMain
 from Kaspa.modules.extension_modules.mensa_module.mensaModuleMain import MensaModuleMain
+from Kaspa.modules.extension_modules.reddit_module.redditModuleMain import RedditModuleMain
 from Kaspa.modules.extension_modules.time_module.timeModuleMain import TimeModuleMain
 from Kaspa.modules.extension_modules.spotify_module.spotifyModuleMain import SpotifyModuleMain
 from Kaspa.modules.extension_modules.wikipedia_module.wikipediaModuleMain import WikipediaModuleMain
@@ -30,9 +33,8 @@ def init_modules():
         # example_command_module = ExampleCommandModule()
         # example_command_module.activate()
         #
-        # # conversation_module = ConversationModule()
-        # # conversation_module.activate()
-        # #
+        ConversationModuleMain().activate()
+
         SpotifyModuleMain().activate()
         #
         # google_maps_module = GoogleMapsModule()
@@ -44,12 +46,10 @@ def init_modules():
 
         MensaModuleMain().activate()
 
-        # reddit_module = RedditModule()
-        # reddit_module.activate()
-        #
-        # weather_module = WeatherModule()
-        # weather_module.activate()
-        #
+        RedditModuleMain().activate()
+
+        WeatherModuleMain().activate()
+
         NewsModuleMain().activate()
 
         WikipediaModuleMain().activate()

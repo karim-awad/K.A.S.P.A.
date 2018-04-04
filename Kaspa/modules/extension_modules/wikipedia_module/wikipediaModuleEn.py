@@ -3,10 +3,15 @@ import Kaspa.modules.extension_modules.helper.comandOps as Co
 
 
 class WikipediaModuleEn(AbstractSubModule):
-
     module_name = "Wikipedia"
 
     language = "en"
+
+    key_regexes = dict()
+
+    def __init__(self):
+        self.key_regexes = {'(?i)who+.*': self.action,
+                            '(?i)what+.*': self.action}
 
     @staticmethod
     def convert_query(query):
@@ -32,6 +37,3 @@ class WikipediaModuleEn(AbstractSubModule):
         communicator = query.get_communicator()
         query_text = str(self.convert_query(query.get_text())).title()
         communicator.say(self.main_module.get_description(query_text, self.language))
-
-    key_regexes = {'(?i)who+.*': action,
-                   '(?i)what+.*': action}

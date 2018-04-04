@@ -4,7 +4,7 @@ from Kaspa.modules.abstract_modules.abstractModule import AbstractModule
 from Kaspa.modules.extension_modules.wolfram_alpha_module.wolframAlphaModuleDe import WolframAlphaModuleDe
 from Kaspa.modules.extension_modules.wolfram_alpha_module.wolframAlphaModuleEn import WolframAlphaModuleEn
 from Kaspa.config import Config
-from Kaspa.modules.exceptions.moduleError import ModuleError
+from Kaspa.modules.exceptions.impossibleActionError import ImpossibleActionError
 
 
 class WolframAlphaModuleMain(AbstractModule):
@@ -36,8 +36,8 @@ class WolframAlphaModuleMain(AbstractModule):
 
             response = urllib.request.urlopen(url).read().decode('utf-8')
         except:
-            # TODObetter handling
-            raise ModuleError(self.module_name, "Wolfram Alpha cannot answer this. Query: " + query)
+            # TODO localize
+            raise ImpossibleActionError("nope.")
         return response
 
     def get_picture(self, query):

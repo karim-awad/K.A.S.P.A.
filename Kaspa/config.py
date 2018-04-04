@@ -91,4 +91,6 @@ class Config(object):
         @param path String where config should be stored"""
         Config.instance = Config.__Config(path)
         if not os.path.exists(path + Config.CONFIG_NAME):
-            Config.instance.populate()
+            # Config.instance.populate()
+            print("No config file found in " + path)
+            exit(1)

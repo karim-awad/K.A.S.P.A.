@@ -60,6 +60,13 @@ class SpotifyModuleMain(AbstractMediaModule):
         tids = spotify.get_saved(min_length=49)
         MpdController.get_instance().play_tids(tids)
 
+    @staticmethod
+    def play_playlist(playlist):
+        spotify = Spotify()
+        tids = spotify.read_playlist(playlist)
+        MpdController.get_instance().play_tids(tids, shuffle=True)
+        return
+
     def play(self):
         mpd_controller = MpdController.get_instance()
         mpd_controller.play()

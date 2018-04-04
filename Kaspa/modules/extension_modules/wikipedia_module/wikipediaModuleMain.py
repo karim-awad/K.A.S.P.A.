@@ -20,12 +20,10 @@ class WikipediaModuleMain(AbstractModule):
         try:
             wiki.set_lang(language)
             # query_text = wiki.search(query_text)[0]  # search for query and take title of first result
-            if query_text is None:
-                raise ModuleError(self.module_name, "No result in Wikipedia search")
             ret = wiki.summary(query_text)
             return Co.get_sentences(ret, 1) # better than the built in function of the wikipedia module
         except DisambiguationError as disambigError:
-            query_text = disambigError.options[0] # take first guess of meaning
+            query_text = disambigError.options[0]  # take first guess of meaning
             ret = wiki.summary(query_text)
             return Co.get_sentences(ret, 1)
         except Exception as e:

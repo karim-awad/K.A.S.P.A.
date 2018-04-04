@@ -7,6 +7,12 @@ class WolframAlphaModuleDe(AbstractSubModule):
 
     language = "de"
 
+    key_regexes = dict()
+
+    def __init__(self):
+        self.key_regexes = {'.*': self.action}
+        """last module standing"""
+
     def action(self, query):
         query_text = query.get_text()
         query_text = str(TextBlob(query_text).translate(from_lang="de", to="en"))
@@ -15,6 +21,3 @@ class WolframAlphaModuleDe(AbstractSubModule):
         answer = str(TextBlob(answer).translate(from_lang="en", to="de"))
 
         communicator.say(answer)
-
-    key_regexes = {'.*': action}
-    """last module standing"""

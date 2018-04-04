@@ -28,15 +28,16 @@ class AssistantCore(object):
         for module in modules:
             """traverse modules and match their regex keys"""
             module = module.get_submodule(query.get_language())
-            for key_regex, method in module.get_key_regexes().items():
-                if re.match(key_regex, message):
-                    try:
-                        method(module, query)
-                    except ImpossibleActionError as e:
-                        communicator.say(self.strings["KNOWN_ERROR"] + str(e))
-                    except ModuleError as e:
-                        communicator.say(self.strings["UNKNOWN_ERROR"])
-                        self.logger.error(str(e))
-                    return
+            if module is not None:
+                for key_regex, method in module.get_key_regexes().items():
+                    if re.match(key_regex, message):
+                        try:
+                            method(query)
+                        except ImpossibleActionError as e:
+                            communicator.say(self.strings["KNOWN_ERROR"] + str(e))
+                        except ModuleError as e:
+                            communicator.say(self.strings["UNKNOWN_ERROR"])
+                            self.logger.error(str(e))
+                        return
         communicator.say(self.strings["NOT_PROCESSABLE"])
 

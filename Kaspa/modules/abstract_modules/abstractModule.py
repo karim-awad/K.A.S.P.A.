@@ -28,7 +28,10 @@ class AbstractModule(object):
         self.submodules = dict()
 
     def get_submodule(self, language):
-        return self.submodules[language]
+        if language in self.submodules:
+            return self.submodules[language]
+        else:
+            return None
 
     def add_submodule(self, submodule):
         self.submodules.update({submodule.get_language(): submodule})

@@ -1,11 +1,21 @@
 from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.config import Config
 
 
 class SpotifyModuleEn(AbstractSubModule):
-
     module_name = "Spotify"
 
     language = "en"
+
+    key_regexes = dict()
+
+    def __init__(self):
+        self.key_regexes = {'(?i).*?(?=continue)+.+?(?=playback)+.': self.action_continue_playback,
+                            '(?i).*?(?=pause)+.': self.action_play,
+                            '(?i).*?(?=play)+.': self.action_play,
+                            '(?i).*?(?=next)+.': self.action_next,
+                            '(?i).*?(?=stop)+.': self.action_pause,
+                            '(?i).*?(?=what)+.+?(?=song)+.': self.action_song_info}
 
     def action_continue_playback(self, query):
         communicator = query.get_communicator()
@@ -21,20 +31,20 @@ class SpotifyModuleEn(AbstractSubModule):
 
     def action_play(self, query):
         communicator = query.get_communicator()
+        text = query.get_text()
 
         if self.main_module.current_song() is None:
             self.main_module.play_saved()
             communicator.say("Okay, playing your last added songs.")
             return
 
-        # # fetch all playlist macros from config file and search for matches in the query
-        # playlists = Config.get_instance().get_section_content('playlists')
-        # for playlist in playlists:
-        #     if playlist[0] in text:
-        #         tids = spotify.read_playlist(playlist[1])
-        #         mpd_controller.play_tids(tids, shuffle=True)
-        #         communicator.say("Okay, playing " + playlist[0])
-        #         return
+        # fetch all playlist macros from config file and search for matches in the query
+        playlists = Config.get_instance().get_section_content('playlists')
+        for playlist in playlists:
+            if playlist[0].lower() in text.lower():
+                self.main_module.play_playlist(playlist[1])
+                communicator.say("Okay, I'll now play the playlist" + playlist[0] + ".")
+                return
 
         self.main_module.play()
         communicator.say("Okay")
@@ -53,13 +63,3 @@ class SpotifyModuleEn(AbstractSubModule):
             communicator.say("The song is " + title + " by " + artist + ".")
         else:
             communicator.say("There is no music loaded right now.")
-
-    key_regexes = {'(?i).*?(?=continue)+.+?(?=playback)+.': action_continue_playback,
-                   '(?i).*?(?=pause)+.': action_play,
-                   '(?i).*?(?=play)+.': action_play,
-                   '(?i).*?(?=next)+.': action_next,
-                   '(?i).*?(?=stop)+.': action_pause,
-                   '(?i).*?(?=what)+.+?(?=song)+.': action_song_info}
-
-
-

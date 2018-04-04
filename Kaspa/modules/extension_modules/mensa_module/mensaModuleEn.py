@@ -8,6 +8,11 @@ class MensaModuleEn(AbstractSubModule):
 
     language = "en"
 
+    key_regexes = dict()
+
+    def __init__(self):
+        self.key_regexes = {'(?i).*?(?=what)+.+?(?=on the menu)+.': self.action}
+
     def action(self, query):
         communicator = query.get_communicator()
         answer = "On todays menu are: \n"
@@ -19,8 +24,5 @@ class MensaModuleEn(AbstractSubModule):
         recommendation = str(TextBlob(recommendation).translate(from_lang="de", to="en"))
         answer = answer + "I'd recommend the " + recommendation
         communicator.say(answer)
-
-    key_regexes = {'(?i).*?(?=what)+.+?(?=on the menu)+.': action}
-
 
 

@@ -1,0 +1,11 @@
+{
+  "(?i)(hi|hallo).?": "Hi, wie kann ich dir helfen?",
+  "(?i).*?(?=wie geht es dir)+.": "Mir geht es sehr gut, danke!",
+  "(?i).*?(?=(wer|was) bist du)+.": "Ich bin Kaspa, dein Persönlicher Assistent. Wie kann ich dir helfen?",
+  "(?i).*?(?=wofür steht kaspa)+.": "Kaspa ist eine Abkürzung für Kaspa, A Simple Python Assistant",
+  "(?i).*?(?=kannst du mich hören)+.": "Na klaro, Jüngling",
+  "(?i).*?(?=wie alt bist du)+.": "Keine Ahnung, vielleicht einandhalb Jahre.",
+  "(?i).*?(?=was ist deine lieblings)+.": "Keine Ahnung, ich habe keine Vorzüge",
+  "(?i).*?(?=was ist dein lieblings)+.": "Keine Ahnung, ich habe keine Vorzüge",
+  "(?i).*?(?=gute nacht)+.": "Gute Nacht, schlaf gut!"
+}
