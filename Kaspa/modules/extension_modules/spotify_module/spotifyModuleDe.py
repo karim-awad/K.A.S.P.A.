@@ -13,7 +13,7 @@ class SpotifyModuleDe(AbstractSubModule):
         self.key_regexes = {'(?i).*?(?=setze)+.+?(?=wiedergabe fort)+.': self.action_continue_playback,
                             '(?i).*?(?=pause)+.': self.action_pause,
                             '((?i).*?(?=wiedergabe)+.)|'
-                            '((?i).*?(?=spiele)+.)|'
+                            '((?i).*?(?=spiel)+.)|'
                             '((?i).*?(?=mach)+.+?(?=musik)+.)|'
                             '((?i).*?(?=musik)+.+?(?=anmachen)+.)': self.action_play,
                             '((?i).*?(?=weiter)+.) |'

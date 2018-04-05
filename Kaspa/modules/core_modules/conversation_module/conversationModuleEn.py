@@ -14,7 +14,7 @@ class ConversationModuleEn(AbstractSubModule):
 
     language = "en"
 
-    CONVERSATIONS_PATH = "Kaspa/modules/core_modules/conversation_module/resources/" + language + "/conversations/"
+    CONVERSATIONS_PATH = "Kaspa/modules/core_modules/resources/conversation_module/" + language + "/conversations/"
 
     def __init__(self):
         # iterate over all json files in the directory

@@ -5,6 +5,7 @@ import subprocess
 import signal
 from Kaspa.config import Config
 from pathlib import Path
+from Kaspa.modules.core_modules.example_command_module.exampleCommandModuleMain import ExampleCommandModuleMain
 from Kaspa.modules.core_modules.conversation_module.conversationModuleMain import ConversationModuleMain
 from Kaspa.modules.extension_modules.hue_module.hueModuleMain import HueModuleMain
 from Kaspa.modules.extension_modules.weather_module.weatherModuleMain import WeatherModuleMain
@@ -30,9 +31,8 @@ def init_modules():
         # daily_briefing_module = DailyBriefingModule()
         # daily_briefing_module.activate()
         #
-        # example_command_module = ExampleCommandModule()
-        # example_command_module.activate()
-        #
+        ExampleCommandModuleMain().activate()
+
         ConversationModuleMain().activate()
 
         SpotifyModuleMain().activate()
