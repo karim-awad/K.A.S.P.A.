@@ -69,13 +69,13 @@ def init_modules():
 
 def start_communicators():
     """starts all wanted communicators"""
-    # vc = VoiceCommunicator()
-    clc = CommandlineCommunicator()
+    vc = VoiceCommunicator()
+    # clc = CommandlineCommunicator()
     tc = TelegramCommunicator()
 
     tc.start()
-    clc.start()
-    # vc.start_conversation()
+    # clc.start()
+    vc.start()
 
 
 def sigint_handler(signal, frame):

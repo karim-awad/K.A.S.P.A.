@@ -63,7 +63,7 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
         language = self.language
         if self.language is 'en':
             language = "en-US"
-        BingTts.tts(text, language)
+        BingTts().tts(text, language)
 
     def ask(self, text):
         self.say(text)
