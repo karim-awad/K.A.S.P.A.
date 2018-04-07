@@ -5,6 +5,8 @@ import subprocess
 import signal
 from Kaspa.config import Config
 from pathlib import Path
+import Kaspa.strings.strings as strings
+
 from Kaspa.modules.core_modules.example_command_module.exampleCommandModuleMain import ExampleCommandModuleMain
 from Kaspa.modules.core_modules.conversation_module.conversationModuleMain import ConversationModuleMain
 from Kaspa.modules.extension_modules.hue_module.hueModuleMain import HueModuleMain
@@ -19,7 +21,8 @@ from Kaspa.modules.extension_modules.wolfram_alpha_module.wolframAlphaModuleMain
 
 from Kaspa.modules.exceptions.moduleError import ModuleError
 
-# from voiceCommunicator import VoiceCommunicator
+from Kaspa.communicators.voiceCommunicator import VoiceCommunicator
+from Kaspa.communicators.telegramCommunicator import TelegramCommunicator
 from Kaspa.communicators.commandlineCommunicator import CommandlineCommunicator
 
 logger = None
@@ -68,20 +71,22 @@ def start_communicators():
     """starts all wanted communicators"""
     # vc = VoiceCommunicator()
     clc = CommandlineCommunicator()
+    tc = TelegramCommunicator()
 
-    clc.start_conversation()
+    tc.start()
+    clc.start()
+    # vc.start_conversation()
 
 
 def sigint_handler(signal, frame):
-    print("\nKaspa: Good Bye, see you soon!")
+    # load strings for this module
+    static_strings = strings.get_strings("kaspa")
+    print(static_strings["GOODBYE"])
     exit(0)
 
 
 def main():
     """starts Kaspa with desired modules and communicators"""
-
-    # Initialize signal handling for Sigint
-    signal.signal(signal.SIGINT, sigint_handler)
 
     # Initialize config directory
     config_dir_path = str(Path.home()) + "/.config/Kaspa/"
@@ -104,6 +109,9 @@ def main():
     # Initialize Config
     Config.set_instance(config_dir_path)
     Config.get_instance().load_modules()
+
+    # Initialize signal handling for Sigint
+    signal.signal(signal.SIGINT, sigint_handler)
 
     # Start mopidy server
     devnull = open(os.devnull, 'w')

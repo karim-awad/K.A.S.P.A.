@@ -1,8 +1,9 @@
 import logging
 import Kaspa.strings.strings as strings
+from threading import Thread
 
 
-class AbstractCommunicator(object):
+class AbstractCommunicator(Thread):
     """Abstract class used for communication with the user"""
 
     logger = logging.getLogger('Kaspa')
@@ -13,9 +14,14 @@ class AbstractCommunicator(object):
 
     strings = dict()
 
-    def __init__(self):
+    def __init__(self, class_name=None):
+        super().__init__()
         self.logger.info(self.__class__.__name__ + " activated")
-        self.strings = strings.get_strings(self.__class__.__name__)
+        if class_name is None:
+            self.strings = strings.get_strings(self.__class__.__name__)
+        else:
+            self.strings = strings.get_strings(class_name)
+
 
     def say(self, text):
         """Method that communicates text to the user
@@ -46,7 +52,7 @@ class AbstractCommunicator(object):
                 return False
         return self.ask_bool("I am sorry, I didn't understand that. Please try answering with a clear Yes or No.")
 
-    def start_conversation(self):
+    def run(self):
         """starts a conversation with the user"""
         raise NotImplementedError("Missing implementation")
         pass

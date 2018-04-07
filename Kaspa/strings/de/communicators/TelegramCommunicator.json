@@ -1,0 +1,6 @@
+{
+  "NO_UNDERSTANDING": "Ich konnte dich nicht verstehen.",
+  "IMPOSSIBLE_REQUEST": "Ich konnte leider kein Transcript deines Satzes empfangen",
+  "START_AUTHORIZED": "Hallo, ich bin Kaspa, wie kann ich dir helfen?",
+  "START_UNAUTHORIZED": "Hallo, du bist nicht authorisiert. Melde dich bei einem Admin um dich zu authorisieren."
+}

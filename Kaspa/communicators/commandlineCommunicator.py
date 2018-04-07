@@ -9,9 +9,9 @@ class CommandlineCommunicator(AbstractTextCommunicator):
         print(self.strings["KASPA_CHAT"] + text)
 
     def ask(self, question):
-        return input(self.strings["KASPA_CHAT"] + question + "\n" + self.strings["USERCHAT"])
+        return input(self.strings["KASPA_CHAT"] + question + "\n" + self.strings["USER_CHAT"])
 
-    def start_conversation(self):
+    def run(self):
         core = AssistantCore()
         self.say(self.strings["WELCOME"])
         while True:
