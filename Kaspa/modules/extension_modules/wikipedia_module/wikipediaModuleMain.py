@@ -21,6 +21,7 @@ class WikipediaModuleMain(AbstractModule):
             wiki.set_lang(language)
             # query_text = wiki.search(query_text)[0]  # search for query and take title of first result
             ret = wiki.summary(query_text)
+            # TODO improve sentence detection
             return Co.get_sentences(ret, 1) # better than the built in function of the wikipedia module
         except DisambiguationError as disambigError:
             query_text = disambigError.options[0]  # take first guess of meaning

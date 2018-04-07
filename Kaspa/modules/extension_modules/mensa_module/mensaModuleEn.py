@@ -1,8 +1,8 @@
 from textblob import TextBlob
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 
 
-class MensaModuleEn(AbstractSubModule):
+class MensaModuleEn(AbstractSubmodule):
 
     module_name = "Mensa Erlangen Sued"
 

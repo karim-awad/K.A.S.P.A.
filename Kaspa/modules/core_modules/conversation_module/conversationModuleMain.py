@@ -2,10 +2,6 @@ from Kaspa.modules.abstract_modules.abstractModule import AbstractModule
 from Kaspa.modules.core_modules.conversation_module.conversationModuleEn import ConversationModuleEn
 from Kaspa.modules.core_modules.conversation_module.conversationModuleDe import ConversationModuleDe
 
-import json
-import re
-import os
-
 
 class ConversationModuleMain(AbstractModule):
 

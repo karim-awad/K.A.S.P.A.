@@ -1,8 +1,8 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 import Kaspa.modules.extension_modules.helper.comandOps as Co
 
 
-class WikipediaModuleEn(AbstractSubModule):
+class WikipediaModuleEn(AbstractSubmodule):
     module_name = "Wikipedia"
 
     language = "en"

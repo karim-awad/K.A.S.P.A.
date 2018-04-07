@@ -1,8 +1,9 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 import Kaspa.modules.extension_modules.helper.comandOps as Co
+from Kaspa.modules.exceptions.impossibleActionError import ImpossibleActionError
 
 
-class WikipediaModuleDe(AbstractSubModule):
+class WikipediaModuleDe(AbstractSubmodule):
     module_name = "Wikipedia"
 
     language = "de"
@@ -32,5 +33,10 @@ class WikipediaModuleDe(AbstractSubModule):
 
     def action(self, query):
         communicator = query.get_communicator()
-        query_text = str(self.convert_query(query.get_text())).title()
-        communicator.say(self.main_module.get_description(query_text, self.language))
+        query_text = self.convert_query(query.get_text())
+        if query_text:
+            query_text = str(query_text.title())
+            communicator.say(self.main_module.get_description(query_text, self.language))
+        else:
+            # TODO localize
+            raise ImpossibleActionError("nope")

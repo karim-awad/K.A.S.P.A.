@@ -1,7 +1,7 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 
 
-class TimeModuleEn(AbstractSubModule):
+class TimeModuleEn(AbstractSubmodule):
 
     module_name = "Time"
 

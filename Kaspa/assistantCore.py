@@ -38,6 +38,9 @@ class AssistantCore(object):
                         except ModuleError as e:
                             communicator.say(self.strings["UNKNOWN_ERROR"])
                             self.logger.error(str(e))
+                        except Exception as e:
+                            communicator.say(self.strings["UNKNOWN_ERROR"])
+                            self.logger.error(str(e))
                         return
         communicator.say(self.strings["NOT_PROCESSABLE"])
 

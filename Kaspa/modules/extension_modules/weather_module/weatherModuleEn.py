@@ -1,7 +1,7 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 
 
-class WeatherModuleEn(AbstractSubModule):
+class WeatherModuleEn(AbstractSubmodule):
     module_name = "Weather"
 
     language = "en"

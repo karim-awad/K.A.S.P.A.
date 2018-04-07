@@ -1,8 +1,8 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 import random
 
 
-class ExampleCommandModuleEn(AbstractSubModule):
+class ExampleCommandModuleEn(AbstractSubmodule):
 
     module_name = "Example Commands"
 

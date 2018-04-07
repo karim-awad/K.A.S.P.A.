@@ -109,7 +109,10 @@ class MpdController:
             self.client.connect(self.address, self.port)
             if shuffle:
                 self.client.random(1)
-            self.client.play(0)
+                self.client.play(0)
+                self.client.next()
+            else:
+                self.client.play(0)
             self.client.disconnect()
 
         def play_tid(self, tid, off=0):

@@ -1,7 +1,7 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 
 
-class RedditModuleEn(AbstractSubModule):
+class RedditModuleEn(AbstractSubmodule):
 
     module_name = "Reddit"
 

@@ -23,6 +23,8 @@ class MensaModuleMain(AbstractBriefingModule):
                 string = string[:i] + "ö" + string[i+6:]
             if string[i:i+6] == "&uuml;":
                 string = string[:i] + "ü" + string[i+6:]
+            if string[i:i+7] == "&szlig;":
+                string = string[:i] + "ß" + string[i+7:]
             if string[i:i+6] == "&quot;":
                 string = string[:i] + '"' + string[i+6:]
             if string[i:i+8] == "&ntilde;":

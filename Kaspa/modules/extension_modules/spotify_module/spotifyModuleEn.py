@@ -1,8 +1,9 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
+from Kaspa.modules.exceptions.impossibleActionError import ImpossibleActionError
 from Kaspa.config import Config
 
 
-class SpotifyModuleEn(AbstractSubModule):
+class SpotifyModuleEn(AbstractSubmodule):
     module_name = "Spotify"
 
     language = "en"
@@ -32,6 +33,12 @@ class SpotifyModuleEn(AbstractSubModule):
     def action_play(self, query):
         communicator = query.get_communicator()
         text = query.get_text()
+
+        try:
+            self.action_continue_playback(query)
+            return
+        except ImpossibleActionError:
+            pass
 
         if self.main_module.current_song() is None:
             self.main_module.play_saved()

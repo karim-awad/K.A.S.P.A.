@@ -1,4 +1,4 @@
-from Kaspa.modules.exceptions.moduleError import ModuleError
+from Kaspa.modules.exceptions.impossibleActionError import ImpossibleActionError
 from Kaspa.modules.extension_modules.helper.spotify import Spotify
 from Kaspa.modules.abstract_modules.abstractMediaModule import AbstractMediaModule
 from Kaspa.modules.extension_modules.helper.mpdController import MpdController
@@ -23,7 +23,8 @@ class SpotifyModuleMain(AbstractMediaModule):
         mpd_controller = MpdController.get_instance()
         song = spotify.get_currently_playing()
         if song is None:
-            raise ModuleError("Spotify", "There is currently no song playing!")
+            # TODO localize
+            raise ImpossibleActionError("There is currently no song playing!")
         else:
             time = song["progress_ms"] // 1000
             mpd_controller.play_tid(song["item"]["uri"], time)
@@ -80,11 +81,15 @@ class SpotifyModuleMain(AbstractMediaModule):
         if mpd_controller.get_state()["state"] == "play":
             return True
 
-    def next(self):
+    @staticmethod
+    def next():
         mpd_controller = MpdController.get_instance()
         mpd_controller.next()
 
-    def current_song(self):
+    @staticmethod
+    def current_song():
         mpd_controller = MpdController.get_instance()
         return mpd_controller.current_song()
+
+
 

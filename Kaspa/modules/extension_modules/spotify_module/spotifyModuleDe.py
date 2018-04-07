@@ -1,8 +1,9 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
+from Kaspa.modules.exceptions.impossibleActionError import ImpossibleActionError
 from Kaspa.config import Config
 
 
-class SpotifyModuleDe(AbstractSubModule):
+class SpotifyModuleDe(AbstractSubmodule):
     module_name = "Spotify"
 
     language = "de"
@@ -19,12 +20,15 @@ class SpotifyModuleDe(AbstractSubModule):
                             '((?i).*?(?=weiter)+.) |'
                             '((?i).*?(?=nächste)+.+?(?=lied)+.)': self.action_next,
                             '(?i).*?(?=stop)+.': self.action_pause,
-                            '(?i).*?(?=welches)+.+?(?=lied)+.': self.action_song_info}
+                            '((?i).*?(?=welches)+.+?(?=lied)+.)|'
+                            '((?i).*?(?=was)+.+?(?=das)+.+?(?=lied)+.)|'
+                            '((?i).*?(?=wie)+.+?(?=das)+.+?(?=lied)+.)': self.action_song_info,
+                            '(?i).*?(?=wem)+.+?(?=lied)+.': self.action_current_artist}
 
     def action_continue_playback(self, query):
         communicator = query.get_communicator()
         self.main_module.continue_playback()
-        communicator.say("Ich werde jetzt deine Musikwiedergabe fortsetzen.")
+        communicator.say("Ich setze jetzt deine Musikwiedergabe fort.")
         return
 
     def action_pause(self, query):
@@ -37,9 +41,15 @@ class SpotifyModuleDe(AbstractSubModule):
         communicator = query.get_communicator()
         text = query.get_text()
 
+        try:
+            self.action_continue_playback(query)
+            return
+        except ImpossibleActionError:
+            pass
+
         if self.main_module.current_song() is None:
-            self.main_module.play_saved()
             communicator.say("Okay, ich spiele jetzt deine zuletzt hinzugefügten Lieder ab")
+            self.main_module.play_saved()
             return
 
         # fetch all playlist macros from config file and search for matches in the query
@@ -51,14 +61,15 @@ class SpotifyModuleDe(AbstractSubModule):
                 self.main_module.play_playlist(uri)
                 communicator.say("Ok, die Playlist " + playlist_name + " wird abgespielt")
                 return
-        self.main_module.play()
+
         communicator.say("Okay")
+        self.main_module.play()
         return
 
     def action_next(self, query):
         communicator = query.get_communicator()
         self.main_module.next()
-        communicator.say("Okay")[0]
+        communicator.say("Okay")
         return
 
     def action_song_info(self, query):
@@ -66,5 +77,13 @@ class SpotifyModuleDe(AbstractSubModule):
         if self.main_module.current_song():
             title, artist = self.main_module.current_song()
             communicator.say("Gerade wird " + title + " von " + artist + " abgespielt.")
+        else:
+            communicator.say("Zurzeit ist keine Musik geladen.")
+
+    def action_current_artist(self, query):
+        communicator = query.get_communicator()
+        if self.main_module.current_song():
+            title, artist = self.main_module.current_song()
+            communicator.say("Das Lied " + title + " ist von " + artist + ".")
         else:
             communicator.say("Zurzeit ist keine Musik geladen.")

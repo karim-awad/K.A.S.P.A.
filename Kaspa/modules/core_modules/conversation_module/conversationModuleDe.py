@@ -1,10 +1,10 @@
 import json
 import re
 import os
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 
 
-class ConversationModuleDe(AbstractSubModule):
+class ConversationModuleDe(AbstractSubmodule):
 
     keywords = dict()
 
@@ -17,6 +17,7 @@ class ConversationModuleDe(AbstractSubModule):
     CONVERSATIONS_PATH = "Kaspa/modules/core_modules/resources/conversation_module/" + language + "/conversations/"
 
     def __init__(self):
+        self.key_regexes["(?i)(klopf).?"] = self.action_knock
         # iterate over all json files in the directory
         self.logger.info("loading the conversation files...")
         conversation_dir = os.listdir(self.CONVERSATIONS_PATH)
@@ -29,6 +30,12 @@ class ConversationModuleDe(AbstractSubModule):
         # update regexes
         for key, answer in self.conversations.items():
             self.key_regexes[key] = self.action
+
+    def action_knock(self, query):
+        communicator = query.get_communicator()
+        answer = communicator.ask("Wer ist da?")
+        communicator.ask(answer + " wer?")
+        communicator.say("HaHa")
 
     def action(self, query):
         message = query.get_text()

@@ -1,7 +1,7 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 
 
-class HueModuleDe(AbstractSubModule):
+class HueModuleDe(AbstractSubmodule):
     module_name = "Phillips Hue"
 
     language = "de"

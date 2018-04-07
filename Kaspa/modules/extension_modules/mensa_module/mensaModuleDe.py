@@ -1,7 +1,7 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 
 
-class MensaModuleDe(AbstractSubModule):
+class MensaModuleDe(AbstractSubmodule):
     module_name = "Mensa Erlangen Sued"
 
     language = "de"

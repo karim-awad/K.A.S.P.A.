@@ -1,10 +1,7 @@
 import logging
-from Kaspa.modules.moduleManager import ModuleManager as mManager
-from Kaspa.modules.submoduleManager import SubmoduleManager
-import Kaspa.strings.strings as strings
 
 
-class AbstractSubModule(object):
+class AbstractSubmodule(object):
     """Abstract class for all plugin modules"""
 
     logger = logging.getLogger('Kaspa')

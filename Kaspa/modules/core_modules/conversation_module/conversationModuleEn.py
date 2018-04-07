@@ -1,10 +1,10 @@
 import json
 import re
 import os
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 
 
-class ConversationModuleEn(AbstractSubModule):
+class ConversationModuleEn(AbstractSubmodule):
 
     keywords = dict()
 

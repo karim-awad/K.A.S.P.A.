@@ -1,11 +1,12 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
+from bs4 import BeautifulSoup as Bs
 import subprocess
 import threading
 import os
 import urllib.request
 
 
-class NewsModuleDe(AbstractSubModule):
+class NewsModuleDe(AbstractSubmodule):
     module_name = "News"
 
     language = "de"
@@ -13,7 +14,8 @@ class NewsModuleDe(AbstractSubModule):
     key_regexes = dict()
 
     def __init__(self):
-        self.key_regexes = {'(?i).*?(?=nachrichten)+.': self.action}
+        self.key_regexes = {'((?i).*?(?=nachrichten)+.)|'
+                            '((?i).*?(?=was)+.+?(?=gibt)+.+?(?=neues)+.)': self.action}
 
     class Process(threading.Thread):
         def run(self):

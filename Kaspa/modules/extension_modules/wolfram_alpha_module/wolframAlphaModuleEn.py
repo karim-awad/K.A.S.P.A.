@@ -1,7 +1,7 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubModule
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 
 
-class WolframAlphaModuleEn(AbstractSubModule):
+class WolframAlphaModuleEn(AbstractSubmodule):
     module_name = "Wolfram Alpha"
 
     language = "en"
