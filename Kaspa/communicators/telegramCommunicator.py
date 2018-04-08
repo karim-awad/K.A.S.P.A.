@@ -16,6 +16,7 @@ from Kaspa.assistantCore import AssistantCore
 class TelegramCommunicator(AbstractTextCommunicator):
     api_key = ''
     chat_id = ''
+    # TODO convert to list
 
     thread_sync = dict()
     """dict of chatid to thread sync object"""
@@ -39,7 +40,7 @@ class TelegramCommunicator(AbstractTextCommunicator):
         """bool that shows whether thread is waiting for answer"""
 
         question_answer = ''
-        """bot puts the answer of a question here if thread is waiting for it"""
+        """bot stores the answer of a question here if thread is waiting for it"""
 
         def __init__(self):
             self.sem = Semaphore(0)

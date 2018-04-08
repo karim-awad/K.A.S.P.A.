@@ -22,7 +22,6 @@ class AbstractCommunicator(Thread):
         else:
             self.strings = strings.get_strings(class_name)
 
-
     def say(self, text):
         """Method that communicates text to the user
             @param text string to be communicated"""

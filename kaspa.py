@@ -11,6 +11,7 @@ from Kaspa.modules.core_modules.example_command_module.exampleCommandModuleMain 
 from Kaspa.modules.core_modules.conversation_module.conversationModuleMain import ConversationModuleMain
 from Kaspa.modules.extension_modules.hue_module.hueModuleMain import HueModuleMain
 from Kaspa.modules.extension_modules.weather_module.weatherModuleMain import WeatherModuleMain
+from Kaspa.modules.extension_modules.tv_guide_module.tvGuideModuleMain import TvGuideModuleMain
 from Kaspa.modules.extension_modules.news_module.newsModuleMain import NewsModuleMain
 from Kaspa.modules.extension_modules.mensa_module.mensaModuleMain import MensaModuleMain
 from Kaspa.modules.extension_modules.reddit_module.redditModuleMain import RedditModuleMain
@@ -47,6 +48,8 @@ def init_modules():
 
         TimeModuleMain().activate()
 
+        TvGuideModuleMain().activate()
+
         MensaModuleMain().activate()
 
         RedditModuleMain().activate()
@@ -69,13 +72,13 @@ def init_modules():
 
 def start_communicators():
     """starts all wanted communicators"""
-    vc = VoiceCommunicator()
+    # vc = VoiceCommunicator()
     # clc = CommandlineCommunicator()
     tc = TelegramCommunicator()
 
     tc.start()
     # clc.start()
-    vc.start()
+    # vc.start()
 
 
 def sigint_handler(signal, frame):
