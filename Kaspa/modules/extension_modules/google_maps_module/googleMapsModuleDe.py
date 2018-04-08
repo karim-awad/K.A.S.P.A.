@@ -1,9 +1,6 @@
-from langdetect import language
-
 from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 from datetime import datetime
 from Kaspa.config import Config
-import googlemaps
 
 
 class GoogleMapsModuleDe(AbstractSubmodule):
@@ -84,4 +81,6 @@ class GoogleMapsModuleDe(AbstractSubmodule):
             if location[0] in query_text:
                 communicator.say(self.get_simple_transit(home, location[1]))
                 return
-        communicator.say("Sorry, aber ich kenne diesen Ort nicht.")
+        location = communicator.ask("Der Ort befindet sich nicht unter deinen gespeicherten Orten. "
+                                    "\n Kannst du ihn bitte nocheinmal wiederholen?")
+        communicator.say(self.get_simple_transit(home, location))

@@ -77,4 +77,6 @@ class GoogleMapsModuleEn(AbstractSubmodule):
             if location[0] in query_text:
                 communicator.say(self.get_simple_transit(home, location[1]))
                 return
-        communicator.say("Sorry, I don't know that location")
+        location = communicator.ask("This location is not in your saved locations. "
+                                    "\n Can you please repeat where you want to go?")
+        communicator.say(self.get_simple_transit(home, location))
