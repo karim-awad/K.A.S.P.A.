@@ -40,12 +40,12 @@ class NewsModuleDe(AbstractBriefingSubmodule):
         communicator = query.get_communicator()
         if communicator.is_text_based():
             communicator.say(
-                "Hier sind die neusten Spiegel Online Nachrichten: \n" + self.main_module.read_rss(
+                "Hier sind die neusten Spiegel Online Nachrichten: \n\n" + self.main_module.read_rss(
                     "http://www.spiegel.de/schlagzeilen/tops/index.rss"))
         else:
             t = self.Process()
             t.start()
-            communicator.say("Ich spiele jetzt die neuste Ausgabe der Tagesschau in 100 Sekunden")
+            communicator.say("Ich spiele jetzt die neuste Ausgabe der Tagesschau in 100 Sekunden.")
             t.join()
             devnull = open(os.devnull, 'w')
             subprocess.call("play /tmp/audio.wav", shell=True, stderr=devnull, stdout=devnull, stdin=devnull)

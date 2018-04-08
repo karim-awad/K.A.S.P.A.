@@ -1,72 +1,26 @@
-import googlemaps
+from langdetect import language
+
+from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 from datetime import datetime
-from Kaspa.modules.abstract_modules.abstractModule import AbstractModule
 from Kaspa.config import Config
+import googlemaps
 
 
-class GoogleMapsModule(AbstractModule):
-
+class GoogleMapsModuleEn(AbstractSubmodule):
     module_name = "Google Maps"
 
-    config_parameters = {"google_maps": "This is you Google Maps API key. You can get it here:\n" \
-                                        "https://developers.google.com/maps/documentation/javascript/get-api-key?hl"
-                                        "=en#key"}
+    language = "en"
 
-    google_maps = None
+    key_regexes = dict()
 
-    def configure(self):
-        api_key = Config.get_instance().get("google maps", "api_key")
-        self.google_maps = googlemaps.Client(key=api_key)
+    def __init__(self):
+        self.key_regexes = {'(?i).*?(?=navigate)+.': self.action}
 
-    @staticmethod
-    def get_transit(start, stop):
+    def get_simple_transit(self, start, stop):
         now = datetime.now()
 
-        directions = GoogleMapsModule.google_maps.directions(
-            start, stop, mode="transit", departure_time=now)
-
-        legs = directions[0]["legs"]
-        transit_instructions = list()
-        vehicles = list()
-        for leg in legs:
-            steps = leg["steps"]
-            for step in steps:
-
-                if step["travel_mode"] == "WALKING":
-                    substeps = step["steps"]
-                    for substep in substeps:
-                        pass
-
-                if step["travel_mode"] == "TRANSIT":
-                    departure_time = step["transit_details"][
-                        "departure_time"]["text"]
-                    departure_stop = step["transit_details"][
-                        "departure_stop"]["name"]
-                    arrival_stop = step["transit_details"]["arrival_stop"]["name"]
-                    instructions = step["html_instructions"]
-                    transit_instructions.append(
-                        "At " +
-                        departure_time +
-                        " from " +
-                        departure_stop +
-                        " take the " +
-                        instructions +
-                        " until " +
-                        arrival_stop)
-                    vehicles.append(
-                                    step["transit_details"]["line"]["vehicle"]
-                                    ["name"] + " " +
-                                    step["transit_details"]["line"]
-                                    ["short_name"])
-
-        return transit_instructions
-
-    @staticmethod
-    def get_simple_transit(start, stop):
-        now = datetime.now()
-
-        directions = GoogleMapsModule.google_maps.directions(
-            start, stop, mode="transit", departure_time=now)
+        directions = self.main_module.google_maps.directions(
+            start, stop, mode="transit", departure_time=now, language=self.language)
 
         legs = directions[0]["legs"]
         transit_instructions = list()
@@ -124,6 +78,3 @@ class GoogleMapsModule(AbstractModule):
                 communicator.say(self.get_simple_transit(home, location[1]))
                 return
         communicator.say("Sorry, I don't know that location")
-
-    key_regexes = {'(?i).*?(?=navigate)+.': action}
-

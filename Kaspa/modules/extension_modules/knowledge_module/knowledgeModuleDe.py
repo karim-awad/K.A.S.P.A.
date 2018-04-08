@@ -37,8 +37,8 @@ class KnowledgeModuleDe(AbstractSubmodule):
         query_text = str(TextBlob(query_text).translate(from_lang="de", to="en"))
         communicator = query.get_communicator()
         if "gro" in query.get_text() and "big" in query_text:
-            """quick fix because translate always translates gross to big instead of tall and I somehow often ask how
-            tall people are"""
+            # quick fix because translate always translates gross to big instead of tall and I somehow often ask how
+            # tall people are
             query_text = query_text.replace("big", "tall")
         try:
             answer = self.main_module.get_wolfram_alpha_answer(query_text)

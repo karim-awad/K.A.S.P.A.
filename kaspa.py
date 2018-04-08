@@ -13,6 +13,7 @@ from Kaspa.modules.core_modules.conversation_module.conversationModuleMain impor
 from Kaspa.modules.extension_modules.hue_module.hueModuleMain import HueModuleMain
 from Kaspa.modules.extension_modules.weather_module.weatherModuleMain import WeatherModuleMain
 from Kaspa.modules.extension_modules.tv_guide_module.tvGuideModuleMain import TvGuideModuleMain
+from Kaspa.modules.extension_modules.google_maps_module.googleMapsModuleMain import GoogleMapsModuleMain
 from Kaspa.modules.extension_modules.news_module.newsModuleMain import NewsModuleMain
 from Kaspa.modules.extension_modules.mensa_module.mensaModuleMain import MensaModuleMain
 from Kaspa.modules.extension_modules.reddit_module.redditModuleMain import RedditModuleMain
@@ -40,8 +41,7 @@ def init_modules():
 
         SpotifyModuleMain().activate()
         #
-        # google_maps_module = GoogleMapsModule()
-        # google_maps_module.activate()
+        GoogleMapsModuleMain().activate()
         #
         HueModuleMain().activate()
 
@@ -69,13 +69,13 @@ def init_modules():
 
 def start_communicators():
     """starts all wanted communicators"""
-    # vc = VoiceCommunicator()
-    # clc = CommandlineCommunicator()
+    #vc = VoiceCommunicator()
+    #clc = CommandlineCommunicator()
     tc = TelegramCommunicator()
 
     tc.start()
-    # clc.start()
-    # vc.start()
+    #clc.start()
+    #vc.start()
 
 
 def sigint_handler(signal, frame):

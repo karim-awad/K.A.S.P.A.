@@ -1,5 +1,6 @@
 from textblob import TextBlob
 from Kaspa.modules.abstract_modules.abstractBriefingSubmodule import AbstractBriefingSubmodule
+import datetime
 
 
 class MensaModuleEn(AbstractBriefingSubmodule):
@@ -26,6 +27,7 @@ class MensaModuleEn(AbstractBriefingSubmodule):
         communicator.say(answer)
 
     def briefing_action(self, query):
-        self.action(query)
+        if datetime.datetime.today().weekday() < 5:
+            self.action(query)
 
 
