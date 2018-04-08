@@ -17,8 +17,7 @@ from Kaspa.modules.extension_modules.mensa_module.mensaModuleMain import MensaMo
 from Kaspa.modules.extension_modules.reddit_module.redditModuleMain import RedditModuleMain
 from Kaspa.modules.extension_modules.time_module.timeModuleMain import TimeModuleMain
 from Kaspa.modules.extension_modules.spotify_module.spotifyModuleMain import SpotifyModuleMain
-from Kaspa.modules.extension_modules.wikipedia_module.wikipediaModuleMain import WikipediaModuleMain
-from Kaspa.modules.extension_modules.wolfram_alpha_module.wolframAlphaModuleMain import WolframAlphaModuleMain
+from Kaspa.modules.extension_modules.knowledge_module.knowledgeModuleMain import KnowledgeModuleMain
 
 from Kaspa.modules.exceptions.moduleError import ModuleError
 
@@ -58,9 +57,7 @@ def init_modules():
 
         NewsModuleMain().activate()
 
-        WikipediaModuleMain().activate()
-
-        WolframAlphaModuleMain().activate()
+        KnowledgeModuleMain().activate()
 
         # TODO get modules from config
 

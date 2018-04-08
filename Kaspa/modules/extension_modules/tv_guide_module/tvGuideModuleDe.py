@@ -27,7 +27,7 @@ class TvGuideModuleDe(AbstractSubmodule):
             for channel in self.channels:
                 if channel in item.title.string:
                     titleparts = item.title.string.split("|")
-                    answer = answer + titleparts[1] + "zeigt ab " + titleparts[0] + titleparts[2] + "\n\n"
+                    answer = answer + str(titleparts[1]).lstrip(" ") + "zeigt ab " + titleparts[0] + titleparts[2] + "\n\n"
         communicator.say(answer)
 
     def action_now(self, query):

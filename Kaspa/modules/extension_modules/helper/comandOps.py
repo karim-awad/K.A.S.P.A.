@@ -32,6 +32,7 @@ def get_text_after(text, key_strings):
             if text[::-1][0] == "?":
                 return text[ind:len(text)-1]
             return text[ind:]
+    return None
 
 
 def filter_string(full_string, string):
