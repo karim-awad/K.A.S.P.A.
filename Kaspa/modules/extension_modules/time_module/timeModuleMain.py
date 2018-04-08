@@ -1,11 +1,11 @@
-from Kaspa.modules.abstract_modules.abstractModule import AbstractModule
+from Kaspa.modules.abstract_modules.abstractBriefingModule import AbstractBriefingModule
 from Kaspa.modules.extension_modules.time_module.timeModuleDe import TimeModuleDe
 from Kaspa.modules.extension_modules.time_module.timeModuleEn import TimeModuleEn
 
 import time
 
 
-class TimeModuleMain(AbstractModule):
+class TimeModuleMain(AbstractBriefingModule):
 
     module_name = "Time"
 

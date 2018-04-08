@@ -1,11 +1,11 @@
 import forecastio
-from Kaspa.modules.abstract_modules.abstractModule import AbstractModule
+from Kaspa.modules.abstract_modules.abstractBriefingModule import AbstractBriefingModule
 from Kaspa.modules.extension_modules.weather_module.weatherModuleEn import WeatherModuleEn
 from Kaspa.modules.extension_modules.weather_module.weatherModuleDe import WeatherModuleDe
 from Kaspa.config import Config
 
 
-class WeatherModuleMain(AbstractModule):
+class WeatherModuleMain(AbstractBriefingModule):
     module_name = "Weather"
 
     config_parameters = {"api_key": "This is the DarkSky Weather Api key. You can get it for free from here: \n"

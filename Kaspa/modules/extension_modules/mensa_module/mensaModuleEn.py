@@ -1,8 +1,8 @@
 from textblob import TextBlob
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
+from Kaspa.modules.abstract_modules.abstractBriefingSubmodule import AbstractBriefingSubmodule
 
 
-class MensaModuleEn(AbstractSubmodule):
+class MensaModuleEn(AbstractBriefingSubmodule):
 
     module_name = "Mensa Erlangen Sued"
 
@@ -24,5 +24,8 @@ class MensaModuleEn(AbstractSubmodule):
         recommendation = str(TextBlob(recommendation).translate(from_lang="de", to="en"))
         answer = answer + "I'd recommend the " + recommendation
         communicator.say(answer)
+
+    def briefing_action(self, query):
+        self.action(query)
 
 

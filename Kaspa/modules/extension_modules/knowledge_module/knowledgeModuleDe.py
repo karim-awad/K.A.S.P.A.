@@ -44,7 +44,7 @@ class KnowledgeModuleDe(AbstractSubmodule):
             answer = self.main_module.get_wolfram_alpha_answer(query_text)
             answer = str(TextBlob(answer).translate(from_lang="en", to="de"))
             communicator.say(answer)
-        except ImpossibleActionError as e:
+        except ImpossibleActionError:
             # try Wikipedia
             query_text = self.convert_query(query.get_text())
             if query_text is None:

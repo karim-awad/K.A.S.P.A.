@@ -1,7 +1,7 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
+from Kaspa.modules.abstract_modules.abstractBriefingSubmodule import AbstractBriefingSubmodule
 
 
-class WeatherModuleEn(AbstractSubmodule):
+class WeatherModuleEn(AbstractBriefingSubmodule):
     module_name = "Weather"
 
     language = "en"
@@ -30,4 +30,15 @@ class WeatherModuleEn(AbstractSubmodule):
             ret = "It is going to be " + summary
         else:
             ret = "There is going to be " + summary
+        communicator.say(ret)
+
+    def briefing_action(self, query):
+        communicator = query.get_communicator()
+        icon, summary, temperature_high = self.main_module.daily_forecast(self.language)
+        if "clear" in icon or "cloudy" in icon:
+            ret = "It is going to be " + summary
+        else:
+            ret = "There is going to be " + summary
+        ret = "Now for today's weather forecast: \n" + \
+              ret + " The temperature will rise up to " + temperature_high + " degrees Celsius"
         communicator.say(ret)

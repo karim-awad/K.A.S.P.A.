@@ -7,6 +7,7 @@ from Kaspa.config import Config
 from pathlib import Path
 import Kaspa.strings.strings as strings
 
+from Kaspa.modules.core_modules.daily_briefing_module.dailyBriefingModuleMain import DailyBriefingModuleMain
 from Kaspa.modules.core_modules.example_command_module.exampleCommandModuleMain import ExampleCommandModuleMain
 from Kaspa.modules.core_modules.conversation_module.conversationModuleMain import ConversationModuleMain
 from Kaspa.modules.extension_modules.hue_module.hueModuleMain import HueModuleMain
@@ -31,9 +32,8 @@ logger = None
 def init_modules():
     """initializes the wanted modules"""
     try:
-        # daily_briefing_module = DailyBriefingModule()
-        # daily_briefing_module.activate()
-        #
+        DailyBriefingModuleMain().activate()
+
         ExampleCommandModuleMain().activate()
 
         ConversationModuleMain().activate()

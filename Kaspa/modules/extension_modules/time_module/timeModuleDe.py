@@ -1,7 +1,7 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
+from Kaspa.modules.abstract_modules.abstractBriefingSubmodule import AbstractBriefingSubmodule
 
 
-class TimeModuleDe(AbstractSubmodule):
+class TimeModuleDe(AbstractBriefingSubmodule):
 
     module_name = "Time"
 
@@ -15,3 +15,6 @@ class TimeModuleDe(AbstractSubmodule):
     def action(self, query):
         communicator = query.get_communicator()
         communicator.say("Es ist " + self.main_module.time())
+
+    def briefing_action(self, query):
+        self.action(query)

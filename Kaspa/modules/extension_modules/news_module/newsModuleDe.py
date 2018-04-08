@@ -1,4 +1,4 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
+from Kaspa.modules.abstract_modules.abstractBriefingSubmodule import AbstractBriefingSubmodule
 from bs4 import BeautifulSoup as Bs
 import subprocess
 import threading
@@ -6,7 +6,7 @@ import os
 import urllib.request
 
 
-class NewsModuleDe(AbstractSubmodule):
+class NewsModuleDe(AbstractBriefingSubmodule):
     module_name = "News"
 
     language = "de"
@@ -52,3 +52,6 @@ class NewsModuleDe(AbstractSubmodule):
             subprocess.call("rm -f /tmp/audio.wav /tmp/tagesschau.mp4", shell=True, stderr=devnull, stdout=devnull,
                             stdin=devnull)
             devnull.close()
+
+    def briefing_action(self, query):
+        self.action(query)

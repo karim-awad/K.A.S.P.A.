@@ -1,11 +1,11 @@
 import urllib.request
 from bs4 import BeautifulSoup as Bs
-from Kaspa.modules.abstract_modules.abstractModule import AbstractModule
+from Kaspa.modules.abstract_modules.abstractBriefingModule import AbstractBriefingModule
 from Kaspa.modules.extension_modules.news_module.newsModuleDe import NewsModuleDe
 from Kaspa.modules.extension_modules.news_module.newsModuleEn import NewsModuleEn
 
 
-class NewsModuleMain(AbstractModule):
+class NewsModuleMain(AbstractBriefingModule):
 
     module_name = "News"
 

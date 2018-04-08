@@ -1,17 +1,20 @@
-from Kaspa.modules.abstract_modules.abstractModule import AbstractModule
+from Kaspa.modules.abstract_modules.abstractBriefingSubmodule import AbstractBriefingSubmodule
 from Kaspa.modules.moduleManager import ModuleManager
 
 
-class DailyBriefingModule(AbstractModule):
+class DailyBriefingModuleEn(AbstractBriefingSubmodule):
+    module_name = "Briefing"
 
-    module_name = "Daily Briefing"
+    language = "en"
 
-    @staticmethod
-    def briefing(query):
-        module_manager = ModuleManager.get_instance()
-        query.set_text('')
-        for briefing_module in module_manager.get_briefing_modules():
-            briefing_module.briefing_action(query)
+    key_regexes = dict()
+
+    def __init__(self):
+        self.key_regexes = {'(?i).*?(?=Good Morning)+.': self.action_morning,
+                            '(?i).*?(?=briefing)+.': self.action_regular}
+
+    def briefing(self, query):
+        self.main_module.briefing(query)
 
     def action_morning(self, query):
         communicator = query.get_communicator()
@@ -26,6 +29,3 @@ class DailyBriefingModule(AbstractModule):
         self.briefing(query)
         communicator.say("That's it, stay informed!")
         return
-
-    key_regexes = {'(?i).*?(?=Good Morning)+.': action_morning,
-                   '(?i).*?(?=briefing)+.': action_regular}

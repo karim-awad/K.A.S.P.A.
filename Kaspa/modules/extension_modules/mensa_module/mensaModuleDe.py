@@ -1,7 +1,7 @@
-from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
+from Kaspa.modules.abstract_modules.abstractBriefingSubmodule import AbstractBriefingSubmodule
 
 
-class MensaModuleDe(AbstractSubmodule):
+class MensaModuleDe(AbstractBriefingSubmodule):
     module_name = "Mensa Erlangen Sued"
 
     language = "de"
@@ -21,3 +21,6 @@ class MensaModuleDe(AbstractSubmodule):
         recommendation = self.main_module.get_recommendation()
         answer = answer + "Meine Empfehlung wäre das Folgende: " + recommendation
         communicator.say(answer)
+
+    def briefing_action(self, query):
+        self.action(query)
