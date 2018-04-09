@@ -69,9 +69,9 @@ def start_communicators():
     """starts all wanted communicators"""
     vc = VoiceCommunicator()
     #clc = CommandlineCommunicator()
-    #tc = TelegramCommunicator()
+    tc = TelegramCommunicator()
 
-    #tc.start()
+    tc.start()
     #clc.start()
     vc.start()
 

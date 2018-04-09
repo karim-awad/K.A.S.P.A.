@@ -1,5 +1,5 @@
-#import resources.snowboy.snowboydecoder as snowboydecoder
-from gtts import gTTS
+import Kaspa.communicators.resources.snowboy.snowboydecoder as snowboydecoder
+# from gtts import gTTS
 from Kaspa.assistantCore import AssistantCore
 # TODO add resources and make it work
 import os
@@ -37,7 +37,7 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
 
     @staticmethod
     def notify_starting_listening():
-        os.system('aplay -q resources/dong.wav')
+        os.system('aplay -q Kaspa/communicators/resources/dong.wav')
 
     @staticmethod
     def decrease_volume():
@@ -49,11 +49,11 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
 
     @staticmethod
     def notify_finished_listening():
-        os.system('aplay -q resources/ding.wav')
+        os.system('aplay -q Kaspa/communicators/resources/ding.wav')
 
     @staticmethod
     def notify_error():
-        os.system('aplay -q resources/dong.wav')
+        os.system('aplay -q Kaspa/communicators/resources/dong.wav')
 
     def say(self, text):
         # self.logger.info("Jarvis said: " + text)
@@ -97,12 +97,13 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
 
     def detected_callback(self):
         """gets called when wakeword detection recognizes wakeword"""
+        core = AssistantCore()
         self.logger.info("hotword detected")
         self.detector.terminate()
         self.notify_starting_listening()
         self.decrease_volume()
         command = self.record()
-        self.answer(command)
+        core.answer(self, command)
         self.increase_volume()
         self.logger.info("listening")
         self.detector.start(self.detected_callback)
@@ -111,17 +112,17 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
         """listens offline for the wakeword, then calls detected_callback"""
         self.recognizer = sr.Recognizer()
         self.recognizer.energy_threshold = self.ENERGY_THRESHOLD
-        #
-        # self.logger.info("Voice communicator is listening...")
-        # self.detector = snowboydecoder.HotwordDetector(self.HOTWORD_PATH, sensitivity=self.SENSITIVITY,
-        #                                                audio_gain=self.AUDIO_GAIN)
-        # self.detector.start(self.detected_callback)
 
-        core = AssistantCore()
-        while True:
-            print("listening...")
-            query = self.record()
-            if query is None:
-                continue
-            print(query)
-            core.answer(self, query)
+        self.logger.info("Voice communicator is listening...")
+        self.detector = snowboydecoder.HotwordDetector(self.HOTWORD_PATH, sensitivity=self.SENSITIVITY,
+                                                       audio_gain=self.AUDIO_GAIN)
+        self.detector.start(self.detected_callback)
+
+        # core = AssistantCore()Kaspa/communicators/
+        # while True:
+        #     print("listening...")
+        #     query = self.record()
+        #     if query is None:
+        #         continue
+        #     print(query)
+        #     core.answer(self, query)
