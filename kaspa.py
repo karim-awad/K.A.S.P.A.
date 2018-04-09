@@ -40,9 +40,9 @@ def init_modules():
         ConversationModuleMain().activate()
 
         SpotifyModuleMain().activate()
-        #
+
         GoogleMapsModuleMain().activate()
-        #
+
         HueModuleMain().activate()
 
         TimeModuleMain().activate()
@@ -58,8 +58,6 @@ def init_modules():
         NewsModuleMain().activate()
 
         KnowledgeModuleMain().activate()
-
-        # TODO get modules from config
 
     except ModuleError as e:
         logger.error(e.message())
