@@ -14,7 +14,7 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
     logger = logging.getLogger("Kaspa")
 
     # Snowboy config values
-    HOTWORD_PATH = "resources/snowboy/resources/jarvis.pmdl"
+    HOTWORD_PATH = "Kaspa/communicators/resources/snowboy/resources/jarvis.pmdl"
     ENERGY_THRESHOLD = 400
     SENSITIVITY = 0.4
     AUDIO_GAIN = 2
