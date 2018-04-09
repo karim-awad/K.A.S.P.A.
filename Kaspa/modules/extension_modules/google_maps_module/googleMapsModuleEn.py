@@ -1,10 +1,6 @@
-from langdetect import language
-
 from Kaspa.modules.abstract_modules.abstractSubmodule import AbstractSubmodule
 from datetime import datetime
 from Kaspa.config import Config
-import googlemaps
-
 
 class GoogleMapsModuleEn(AbstractSubmodule):
     module_name = "Google Maps"
