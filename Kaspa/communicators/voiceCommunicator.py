@@ -63,6 +63,7 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
         language = self.language
         if self.language is 'en':
             language = "en-US"
+        print(text)
         BingTts().tts(text, language)
 
     def ask(self, text):
@@ -103,8 +104,8 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
         self.notify_starting_listening()
         self.decrease_volume()
         command = self.record()
-        core.answer(self, command)
         self.increase_volume()
+        core.answer(self, command)
         self.logger.info("listening")
         self.detector.start(self.detected_callback)
 
