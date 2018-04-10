@@ -1,5 +1,4 @@
 from Kaspa.modules.abstract_modules.abstractBriefingSubmodule import AbstractBriefingSubmodule
-import Kaspa.modules.extension_modules.helper.comandOps as Co
 from Kaspa.modules.extension_modules.helper.pcControl import PcControl
 
 
@@ -18,7 +17,7 @@ class PcControlModuleDe(AbstractBriefingSubmodule):
         communicator = query.get_communicator()
         controller = PcControl()
         if controller.ping():
-            communicator.say("Dein Computer ist schon eingeschlaten.")
+            communicator.say("Dein Computer ist schon eingeschalten.")
         else:
             communicator.say("Okay, ich schalte deinen Computer ein.")
             controller.on()
