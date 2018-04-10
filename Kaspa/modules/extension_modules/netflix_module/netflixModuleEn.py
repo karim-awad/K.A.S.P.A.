@@ -17,7 +17,9 @@ class NetflixModuleEn(AbstractBriefingSubmodule):
     """script that pauses/plays netflix on my pc"""
 
     def __init__(self):
-        self.key_regexes = {'(?i).*?(?=play)+.+?(?=on netflix)+.': self.action_play_show}
+        self.key_regexes = {'(?i).*?(?=play)+.+?(?=on netflix)+.': self.action_play_show,
+                            '(?i).*?(?=continue)+.+?(?=netflix)+.': self.action_pause_play,
+                            '(?i).*?(?=paus)+.+?(?=netflix)+.': self.action_pause_play}
 
     def action_play_show(self, query):
         text = query.get_text()

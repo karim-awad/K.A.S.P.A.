@@ -18,7 +18,7 @@ class NetflixModuleDe(AbstractBriefingSubmodule):
 
     def __init__(self):
         self.key_regexes = {'(?i).*?(?=spiele)+.+?(?=auf netflix)+.': self.action_play_show,
-                            '(?i).*?(?=continue)+.+?(?=netflix)+.': self.action_pause_play,
+                            '(?i).*?(?=netflix)+.+?(?=weiter)+.': self.action_pause_play,
                             '(?i).*?(?=paus)+.+?(?=netflix)+.': self.action_pause_play}
 
     def action_play_show(self, query):
