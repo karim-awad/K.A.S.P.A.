@@ -21,6 +21,7 @@ from Kaspa.modules.extension_modules.time_module.timeModuleMain import TimeModul
 from Kaspa.modules.extension_modules.spotify_module.spotifyModuleMain import SpotifyModuleMain
 from Kaspa.modules.extension_modules.knowledge_module.knowledgeModuleMain import KnowledgeModuleMain
 from Kaspa.modules.extension_modules.netflix_module.netflixModuleMain import NetflixModuleMain
+from Kaspa.modules.extension_modules.pc_control_module.pcControlModuleMain import PcControlModuleMain
 
 from Kaspa.modules.exceptions.moduleError import ModuleError
 
@@ -41,6 +42,8 @@ def init_modules():
         ConversationModuleMain().activate()
 
         NetflixModuleMain().activate()
+
+        PcControlModuleMain().activate()
 
         SpotifyModuleMain().activate()
 

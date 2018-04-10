@@ -96,20 +96,21 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
         except sr.UnknownValueError:
             self.logger.info("Could not hear anything")
             self.say("Sorry, but I could not hear anything")
+            self.detector.start(self.detected_callback)
             return
         except sr.RequestError as e:
             self.logger.error("Could not request results" + str(e))
             self.say("Sorry, but I could not request results")
+            self.detector.start(self.detected_callback)
             return
         except Exception as e:
             self.logger.error(str(e))
             self.say("Sorry, but I didn't understand that.")
+            self.detector.start(self.detected_callback)
             return
         self.increase_volume()
-        if command is not None:
-            core.answer(self, command)
-        else:
-            self.say("Sorry, I didn't hear anything")
+        self.notify_finished_listening()
+        core.answer(self, command)
         self.logger.info("listening")
         self.detector.start(self.detected_callback)
 
@@ -122,12 +123,3 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
         self.detector = snowboydecoder.HotwordDetector(self.HOTWORD_PATH, sensitivity=self.SENSITIVITY,
                                                        audio_gain=self.AUDIO_GAIN)
         self.detector.start(self.detected_callback)
-
-        # core = AssistantCore()Kaspa/communicators/
-        # while True:
-        #     print("listening...")
-        #     query = self.record()
-        #     if query is None:
-        #         continue
-        #     print(query)
-        #     core.answer(self, query)
