@@ -20,6 +20,7 @@ from Kaspa.modules.extension_modules.reddit_module.redditModuleMain import Reddi
 from Kaspa.modules.extension_modules.time_module.timeModuleMain import TimeModuleMain
 from Kaspa.modules.extension_modules.spotify_module.spotifyModuleMain import SpotifyModuleMain
 from Kaspa.modules.extension_modules.knowledge_module.knowledgeModuleMain import KnowledgeModuleMain
+from Kaspa.modules.extension_modules.netflix_module.netflixModuleMain import NetflixModuleMain
 
 from Kaspa.modules.exceptions.moduleError import ModuleError
 
@@ -38,6 +39,8 @@ def init_modules():
         ExampleCommandModuleMain().activate()
 
         ConversationModuleMain().activate()
+
+        NetflixModuleMain().activate()
 
         SpotifyModuleMain().activate()
 

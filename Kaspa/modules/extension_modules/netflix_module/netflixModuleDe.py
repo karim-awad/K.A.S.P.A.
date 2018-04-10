@@ -19,7 +19,7 @@ class NetflixModuleDe(AbstractBriefingSubmodule):
     def action_play_show(self, query):
         text = query.get_text()
         communicator = query.get_communicator()
-        name = Co.get_text_After(text, ["spiele"])
+        name = Co.get_text_after(text, ["spiele"])
         name = Co.filter_string(name, "auf netflix")
         link = self.main_module.get_link(name)
         PcControl().run_remote_command(self.SCRIPT_PATH + link + ' &')
