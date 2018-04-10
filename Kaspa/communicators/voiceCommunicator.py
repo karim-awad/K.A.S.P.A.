@@ -92,9 +92,9 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
             self.say("Sorry, but I could not request results")
         except Exception as e:
             self.logger.error(str(e))
-        # finally:
-        #     self.increase_volume()
-        #     self.notify_error()
+        finally:
+            self.increase_volume()
+            self.notify_error()
 
     def detected_callback(self):
         """gets called when wakeword detection recognizes wakeword"""
@@ -105,7 +105,10 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
         self.decrease_volume()
         command = self.record()
         self.increase_volume()
-        core.answer(self, command)
+        if command is not None:
+            core.answer(self, command)
+        else:
+            self.say("Sorry, I didn't hear anything")
         self.logger.info("listening")
         self.detector.start(self.detected_callback)
 
