@@ -10,11 +10,16 @@ class NetflixModuleDe(AbstractBriefingSubmodule):
 
     key_regexes = dict()
 
-    SCRIPT_PATH = '/home/karim/bin/netflixchoose '
+    SCRIPT_OPEN_PATH = '/home/karim/bin/netflixchoose '
     """script that opens chrome with the given link in kiosk mode located on my main pc"""
 
+    SCRIPT_PLAY_PAUSE_PATH = '/home/karim/bin/netflixpp '
+    """script that pauses/plays netflix on my pc"""
+
     def __init__(self):
-        self.key_regexes = {'(?i).*?(?=spiele)+.+?(?=auf netflix)+.': self.action_play_show}
+        self.key_regexes = {'(?i).*?(?=spiele)+.+?(?=auf netflix)+.': self.action_play_show,
+                            '(?i).*?(?=continue)+.+?(?=netflix)+.': self.action_pause_play,
+                            '(?i).*?(?=paus)+.+?(?=netflix)+.': self.action_pause_play}
 
     def action_play_show(self, query):
         text = query.get_text()
@@ -22,8 +27,14 @@ class NetflixModuleDe(AbstractBriefingSubmodule):
         name = Co.get_text_after(text, ["spiele"])
         name = Co.filter_string(name, "auf netflix")
         link = self.main_module.get_link(name)
-        PcControl().run_remote_command(self.SCRIPT_PATH + link + ' &')
+        PcControl().run_remote_command(self.SCRIPT_OPEN_PATH + link + ' &')
         communicator.say("Okay, ich spiele jetzt " + name + " auf Netflix.")
+
+    def action_pause_play(self, query):
+        communicator = query.get_communicator()
+        PcControl().run_remote_command(self.SCRIPT_PLAY_PAUSE_PATH + ' &')
+        communicator.say("Okay!")
+
 
 
 

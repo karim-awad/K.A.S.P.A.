@@ -13,6 +13,9 @@ class NetflixModuleEn(AbstractBriefingSubmodule):
     SCRIPT_PATH = '/home/karim/bin/netflixchoose '
     """script that opens chrome with the given link in kiosk mode located on my main pc"""
 
+    SCRIPT_PLAY_PAUSE_PATH = '/home/karim/bin/netflixpp '
+    """script that pauses/plays netflix on my pc"""
+
     def __init__(self):
         self.key_regexes = {'(?i).*?(?=play)+.+?(?=on netflix)+.': self.action_play_show}
 
@@ -24,3 +27,8 @@ class NetflixModuleEn(AbstractBriefingSubmodule):
         link = self.main_module.get_link(name)
         PcControl().run_remote_command(self.SCRIPT_PATH + link + ' &')
         communicator.say("Okay, playing " + name + " on Netflix.")
+
+    def action_pause_play(self, query):
+        communicator = query.get_communicator()
+        PcControl().run_remote_command(self.SCRIPT_PLAY_PAUSE_PATH + ' &')
+        communicator.say("Okay!")
