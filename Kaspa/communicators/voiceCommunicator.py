@@ -77,24 +77,12 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
             @return string, the user answered"""
         with sr.Microphone() as source:
             audio = self.recognizer.listen(source)
-        try:
             language = self.language
             if self.language is 'en':
                 language = "en-US"
             query = self.recognizer.recognize_google(audio, language=language)
             self.logger.info("User said " + query)
             return query
-        except sr.UnknownValueError:
-            self.logger.info("Could not hear anything")
-            self.say("Sorry, but I could not hear anything")
-        except sr.RequestError as e:
-            self.logger.error("Could not request results" + str(e))
-            self.say("Sorry, but I could not request results")
-        except Exception as e:
-            self.logger.error(str(e))
-        # finally:
-        #     self.increase_volume()
-        #     self.notify_error()
 
     def detected_callback(self):
         """gets called when wakeword detection recognizes wakeword"""
@@ -103,7 +91,20 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
         self.detector.terminate()
         self.notify_starting_listening()
         self.decrease_volume()
-        command = self.record()
+        try:
+            command = self.record()
+        except sr.UnknownValueError:
+            self.logger.info("Could not hear anything")
+            self.say("Sorry, but I could not hear anything")
+            return
+        except sr.RequestError as e:
+            self.logger.error("Could not request results" + str(e))
+            self.say("Sorry, but I could not request results")
+            return
+        except Exception as e:
+            self.logger.error(str(e))
+            self.say("Sorry, but I didn't understand that.")
+            return
         self.increase_volume()
         core.answer(self, command)
         self.logger.info("listening")

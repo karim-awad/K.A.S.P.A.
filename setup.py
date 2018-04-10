@@ -12,5 +12,5 @@ setup(
     author_email='dev@awad.cloud',
     description='Kaspa, a simple python assistant',
     install_requires=['beautifulsoup4', 'praw', 'python-forecastio', 'googlemaps', 'phue', 'textblob', 'wikipedia',
-                      'requests', 'python-mpd2', 'spotipy', 'configparser', 'lxml', 'telepot', 'telegram']
+                      'requests', 'python-mpd2', 'spotipy', 'configparser', 'lxml', 'telepot', 'telegram', 'wakeonlan']
 )
