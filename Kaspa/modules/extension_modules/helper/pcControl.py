@@ -35,5 +35,5 @@ class PcControl(object):
         self.on()
         while not self.ping():
             time.sleep(1)
-        remote_command = "ssh " + self.user + "@" + self.hostname + " '" + command + "'"
+        remote_command = "ssh " + self.user + "@" + self.hostname + " '" + command + "' &"
         os.system(remote_command)
