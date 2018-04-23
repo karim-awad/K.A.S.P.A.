@@ -1,0 +1,4 @@
+{"(?i).*?(?=tschüss)+.": ["Adios Amigo", ["mach das licht aus", "stopp die musik", "mach meinen computer aus"]],
+  "(?i).*?(?=gute nacht)+.": ["Gute Nacht, schlaf gut.", ["mach das licht aus", "stopp die musik", "mach meinen computer aus"]],
+    "(?i).*?(?=chiller modus)+.": ["Chillermodus wird aktiviert!", ["schalte das licht auf entspannung", "spiele independent chillout"]
+}

@@ -1,5 +1,5 @@
 import wakeonlan
-from wakeonlan import wol
+# from wakeonlan import wol
 import time
 import os
 from Kaspa.config import Config
@@ -18,7 +18,8 @@ class PcControl(object):
         self.user = config.get("pc", "user")
 
     def on(self):
-        wol.send_magic_packet(self.mac)
+        # wol.send_magic_packet(self.mac)
+        pass
 
     def off(self):
         os.system("ssh " + "root@" + self.hostname + " 'poweroff'")

@@ -1,14 +1,11 @@
-from Kaspa.communicators.abstract_communicators.abstractCommunicator import AbstractCommunicator
+from Kaspa.communicators.abstract_communicators.abstractTextCommunicator import AbstractTextCommunicator
 
 
-class NullCommunicator(AbstractCommunicator):
+class NullCommunicator(AbstractTextCommunicator):
     """null communicator to allow using modules without output"""
 
-    def __init__(self, text_based):
-        super().__init__()
-        self.text_based = text_based
-
     def say(self, text):
+        self.logger.info(text)
         pass
 
     def ask(self, question):
