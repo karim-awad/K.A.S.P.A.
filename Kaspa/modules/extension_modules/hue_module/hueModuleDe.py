@@ -9,10 +9,10 @@ class HueModuleDe(AbstractSubmodule):
     key_regexes = dict()
 
     def __init__(self):
-        self.key_regexes = {'(?i).*?(?=licht)+?(?=entspannung)+.': self.action_scene,
-                            '((?i).*(?=licht)+.+?(?=an)+.)|'
+        self.key_regexes = {'(?i).*?(?=licht)+.+?(?=chillig)+.': self.action_scene,
+                            '((?i).*?(?=licht)+.+?(?=an)+.)|'
                             '((?i).*?(?=licht)+.+?(?=ein)+.)': self.action_on,
-                            '((?i).*?(?=licht)+.+?(?=aus)+.)': self.action_off}
+                            '(?i).*?(?=licht)+.+?(?=aus)+.': self.action_off}
 
     def action_off(self, query):
         communicator = query.get_communicator()

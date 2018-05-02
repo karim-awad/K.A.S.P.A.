@@ -17,7 +17,7 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
     HOTWORD_PATH = "Kaspa/communicators/resources/snowboy/resources/jarvis.pmdl"
     ENERGY_THRESHOLD = 400
     SENSITIVITY = 0.4
-    AUDIO_GAIN = 2
+    AUDIO_GAIN = 1
 
     # Volume values
     DECREASED_VOLUME = 50

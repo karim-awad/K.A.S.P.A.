@@ -35,8 +35,7 @@ class HueModuleMain(AbstractModule):
 
     @staticmethod
     def scene(chosen_scene):
-        assert chosen_scene in ["chillig"]
-        if chosen_scene is "chillig":
+        if chosen_scene == "chillig":
             # the event has to be created on ifttt.com first
             ifttt.send_event("huescene")
 

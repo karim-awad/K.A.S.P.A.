@@ -21,14 +21,14 @@ from Kaspa.modules.extension_modules.reddit_module.redditModuleMain import Reddi
 from Kaspa.modules.extension_modules.time_module.timeModuleMain import TimeModuleMain
 from Kaspa.modules.extension_modules.spotify_module.spotifyModuleMain import SpotifyModuleMain
 from Kaspa.modules.extension_modules.knowledge_module.knowledgeModuleMain import KnowledgeModuleMain
-# from Kaspa.modules.extension_modules.netflix_module.netflixModuleMain import NetflixModuleMain
-# from Kaspa.modules.extension_modules.pc_control_module.pcControlModuleMain import PcControlModuleMain
+from Kaspa.modules.extension_modules.netflix_module.netflixModuleMain import NetflixModuleMain
+from Kaspa.modules.extension_modules.pc_control_module.pcControlModuleMain import PcControlModuleMain
 
 from Kaspa.modules.exceptions.moduleError import ModuleError
 
-# from Kaspa.communicators.voiceCommunicator import VoiceCommunicator
-# from Kaspa.communicators.telegramCommunicator import TelegramCommunicator
-from Kaspa.communicators.commandlineCommunicator import CommandlineCommunicator
+from Kaspa.communicators.voiceCommunicator import VoiceCommunicator
+from Kaspa.communicators.telegramCommunicator import TelegramCommunicator
+#from Kaspa.communicators.commandlineCommunicator import CommandlineCommunicator
 
 logger = None
 
@@ -44,9 +44,9 @@ def init_modules():
 
         ConversationModuleMain().activate()
 
-        #NetflixModuleMain().activate()
+        NetflixModuleMain().activate()
 
-        #PcControlModuleMain().activate()
+        PcControlModuleMain().activate()
 
         SpotifyModuleMain().activate()
 
@@ -76,13 +76,13 @@ def init_modules():
 
 def start_communicators():
     """starts all wanted communicators"""
-    # vc = VoiceCommunicator()
-    clc = CommandlineCommunicator()
-    # tc = TelegramCommunicator()
+    vc = VoiceCommunicator()
+    #clc = CommandlineCommunicator()
+    tc = TelegramCommunicator()
 
-    # tc.start()
-    clc.start()
-    # vc.start()
+    tc.start()
+    #clc.start()
+    vc.start()
 
 
 def sigint_handler(signal, frame):
