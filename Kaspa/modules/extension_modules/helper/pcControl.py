@@ -32,9 +32,10 @@ class PcControl(object):
         else:
             return False
 
-    def run_remote_command(self, command):
+    def run_remote_command(self, command, force=True):
         self.on()
-        while not self.ping():
-            time.sleep(1)
+        if force:
+            while not self.ping():
+                time.sleep(1)
         remote_command = "ssh " + self.user + "@" + self.hostname + " '" + command + "' &"
         os.system(remote_command)
