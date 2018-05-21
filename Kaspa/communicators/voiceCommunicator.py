@@ -6,6 +6,8 @@ import speech_recognition as sr
 from Kaspa.communicators.abstract_communicators.abstractVoiceCommunicator import AbstractVoiceCommunicator
 import logging
 from Kaspa.config import Config
+from Kaspa.modules.extension_modules.helper.pcControl import PcControl
+
 from Kaspa.communicators.helper.bingTts import BingTts
 
 
@@ -19,7 +21,7 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
     AUDIO_GAIN = 2
 
     # Volume values
-    DECREASED_VOLUME = 50
+    DECREASED_VOLUME = 0
     INCREASED_VOLUME = 100
 
     detector = None
@@ -30,6 +32,8 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
 
     language = ''
 
+    MUTE_PC_COMMAND = 'export DISPLAY=:0 && xdotool key XF86AudioMute'
+
     def __init__(self):
         super().__init__()
         self.language = Config.get_instance().get("general", "language")
@@ -38,13 +42,13 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
     def notify_starting_listening():
         os.system('aplay -q Kaspa/communicators/resources/dong.wav')
 
-    @staticmethod
-    def decrease_volume():
+    def mute(self):
         os.system("amixer set PCM " + str(VoiceCommunicator.DECREASED_VOLUME) + "%")
+        PcControl().run_remote_command(self.MUTE_PC_COMMAND)
 
-    @staticmethod
-    def increase_volume():
+    def unmute(self):
         os.system("amixer set PCM " + str(VoiceCommunicator.INCREASED_VOLUME) + "%")
+        PcControl().run_remote_command(self.MUTE_PC_COMMAND)
 
     @staticmethod
     def notify_finished_listening():
@@ -102,9 +106,9 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
         self.logger.info("hotword detected")
         self.detector.terminate()
         self.notify_starting_listening()
-        self.decrease_volume()
+        self.mute()
         command = self.record()
-        self.increase_volume()
+        self.unmute()
         if command is not None:
             self.notify_finished_listening()
             core.answer(self, command)
