@@ -1,7 +1,6 @@
 import Kaspa.communicators.resources.snowboy.snowboydecoder as snowboydecoder
-# from gtts import gTTS
+from gtts import gTTS
 from Kaspa.assistantCore import AssistantCore
-# TODO add resources and make it work
 import os
 import speech_recognition as sr
 from Kaspa.communicators.abstract_communicators.abstractVoiceCommunicator import AbstractVoiceCommunicator
@@ -17,7 +16,7 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
     HOTWORD_PATH = "Kaspa/communicators/resources/snowboy/resources/jarvis.pmdl"
     ENERGY_THRESHOLD = 400
     SENSITIVITY = 0.4
-    AUDIO_GAIN = 1
+    AUDIO_GAIN = 2
 
     # Volume values
     DECREASED_VOLUME = 50
@@ -56,15 +55,15 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
         os.system('aplay -q Kaspa/communicators/resources/dong.wav')
 
     def say(self, text):
-        # self.logger.info("Jarvis said: " + text)
-        # tts = gTTS(text=text, lang=self.language)
-        # tts.save("/tmp/.kaspaAnswer.mp3")
-        # os.system("mpg123 -q /tmp/.kaspaAnswer.mp3")
-        language = self.language
-        if self.language is 'en':
-            language = "en-US"
-        print(text)
-        BingTts().tts(text, language)
+        self.logger.info("Jarvis said: " + text)
+        tts = gTTS(text=text, lang=self.language)
+        tts.save("/tmp/.kaspaAnswer.mp3")
+        os.system("mpg123 -q /tmp/.kaspaAnswer.mp3")
+        #language = self.language
+        #if self.language is 'en':
+            #language = "en-US"
+        #print(text)
+        #BingTts().tts(text, language)
 
     def ask(self, text):
         self.say(text)

@@ -55,6 +55,23 @@ class HueModuleMain(AbstractModule):
         except Exception as e:
             raise ModuleError(self.module_name, str(e))
 
+    def fan_on(self):
+        try:
+            self.bridge.set_group(3, 'on', True)
+        except phue.PhueRequestTimeout:
+            raise ImpossibleActionError("Connection timed out.")
+        except Exception as e:
+            raise ModuleError(self.module_name, str(e))
+
+    def fan_off(self):
+        try:
+            self.bridge.set_group(3, 'on', False)
+        except phue.PhueRequestTimeout:
+            raise ImpossibleActionError("Connection timed out.")
+        except Exception as e:
+            raise ModuleError(self.module_name, str(e))
+
+
     # maybe going to switch to selection of more scenes, but it is good enough for my usage right now
     def scene_relaxing(self):
         self.scene('chillig')

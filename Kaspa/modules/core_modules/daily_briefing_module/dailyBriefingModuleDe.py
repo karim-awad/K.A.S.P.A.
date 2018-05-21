@@ -20,12 +20,12 @@ class DailyBriefingModuleDe(AbstractBriefingSubmodule):
         communicator = query.get_communicator()
         communicator.say("Guten Morgen! Ich hoffe du hast gut geschlafen. Nun folgt deine tägliche Zusammenfassung")
         self.briefing(query)
-        communicator.say("Das wars. Ich wünsche dir einen erfolgreichen Tag!")
+        communicator.say("Das war's. Ich wünsche dir einen erfolgreichen Tag!")
         return
 
     def action_regular(self, query):
         communicator = query.get_communicator()
         communicator.say("Das ist deine heutige Zusammenfassung:")
         self.briefing(query)
-        communicator.say("Das wars. Bleib informiert!")
+        communicator.say("Das war's. Bleib informiert!")
         return
