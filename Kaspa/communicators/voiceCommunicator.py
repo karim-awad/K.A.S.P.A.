@@ -44,11 +44,11 @@ class VoiceCommunicator(AbstractVoiceCommunicator):
 
     def mute(self):
         os.system("amixer set PCM " + str(VoiceCommunicator.DECREASED_VOLUME) + "%")
-        PcControl().run_remote_command(self.MUTE_PC_COMMAND)
+        PcControl().run_remote_command(self.MUTE_PC_COMMAND, False)
 
     def unmute(self):
         os.system("amixer set PCM " + str(VoiceCommunicator.INCREASED_VOLUME) + "%")
-        PcControl().run_remote_command(self.MUTE_PC_COMMAND)
+        PcControl().run_remote_command(self.MUTE_PC_COMMAND, False)
 
     @staticmethod
     def notify_finished_listening():
